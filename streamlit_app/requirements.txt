@@ -1,0 +1,8 @@
+streamlit
+gensim==4.4.0
+scikit-learn
+joblib
+numpy
+Sastrawi
+trafilatura
+requests

@@ -1,0 +1,2558 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="./" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Tugas 1 — Scraping Berita Detik.com Kategori Sport dan Finance &#8212; My sample book</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  <!--
+    this give us a css class that will be invisible only if js is disabled
+  -->
+  <noscript>
+    <style>
+      .pst-js-only { display: none !important; }
+
+    </style>
+  </noscript>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="_static/styles/theme.css?digest=55c26ed414f5f8a31ebb" rel="stylesheet" />
+<link href="_static/styles/pydata-sphinx-theme.css?digest=55c26ed414f5f8a31ebb" rel="stylesheet" />
+
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=03e43079" />
+    <link rel="stylesheet" type="text/css" href="_static/styles/sphinx-book-theme.css?v=3c74b3bc" />
+    <link rel="stylesheet" type="text/css" href="_static/togglebutton.css?v=9c3e77be" />
+    <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="_static/mystnb.11b39860a7a0cbfd473a3ad8a317855267ff0bd372690045ca344a6b62be495e.css" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-design.min.css?v=95c83b7e" />
+  
+  <!-- So that users can add custom icons -->
+  <script defer src="_static/scripts/fontawesome.js?digest=55c26ed414f5f8a31ebb"></script>
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=55c26ed414f5f8a31ebb" />
+<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=55c26ed414f5f8a31ebb" />
+
+    <script src="_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="_static/doctools.js?v=9a2dae69"></script>
+    <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="_static/copybutton.js?v=f281be69"></script>
+    <script src="_static/scripts/sphinx-book-theme.js?v=fab101a9"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="_static/togglebutton.js?v=b8b12719"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="_static/design-tabs.js?v=f930bc37"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'tugas_1';</script>
+    <script>DOCUMENTATION_OPTIONS.search_as_you_type = false;</script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Tugas 2 - Text Preprocessing, TF-IDF, ICSDF, dan PCA" href="tugas_2.html" />
+    <link rel="prev" title="PPW (Pencarian &amp; penambangan Web)" href="intro.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  <meta name="docsearch:version" content="" />
+  
+    
+    <script src="_static/searchtools.js"></script>
+    <script src="_static/language_data.js"></script>
+    <script src="searchindex.js"></script>
+  
+  </head>
+  <body data-default-mode="">
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+  
+  
+  
+  
+  <dialog id="pst-search-dialog">
+    
+<form class="bd-search d-flex align-items-center"
+      action="search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form>
+  </dialog>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header id="pst-header" class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+<div class="bd-header__inner bd-page-width">
+  <button class="pst-navbar-icon sidebar-toggle primary-toggle" aria-label="Site navigation">
+    <span class="fa-solid fa-bars"></span>
+  </button>
+  
+  
+  <div class="col-lg-9 navbar-header-items">
+    
+    
+    <div class="navbar-header-items__end">
+      
+        <div class="navbar-item navbar-persistent--container">
+          
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button>
+        </div>
+      
+      
+    </div>
+    
+  </div>
+  
+  
+    <div class="navbar-persistent--mobile">
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button>
+    </div>
+  
+
+  
+    <button class="pst-navbar-icon sidebar-toggle secondary-toggle" aria-label="On this page">
+      <span class="fa-solid fa-outdent"></span>
+    </button>
+  
+</div>
+
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <dialog id="pst-primary-sidebar-modal"></dialog>
+      <div id="pst-primary-sidebar" class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="intro.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="_static/pp.jpeg" class="logo__image only-light" alt="My sample book - Home"/>
+    <img src="_static/pp.jpeg" class="logo__image only-dark pst-js-only" alt="My sample book - Home"/>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="intro.html">
+                    PPW (Pencarian & penambangan Web)
+                </a>
+            </li>
+        </ul>
+        <ul class="current nav bd-sidenav">
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">Tugas 1 — Scraping Berita Detik.com Kategori Sport dan Finance</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tugas_2.html">Tugas 2 - Text Preprocessing, TF-IDF, ICSDF, dan PCA</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tugas_3.html">Tugas 3 — Penerapan Word2Vec pada Data Teks Bahasa Indonesia</a></li>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+      <div class="sidebar-primary-item">
+<div id="ethical-ad-placement"
+      class="flat"
+      data-ea-publisher="readthedocs"
+      data-ea-type="readthedocs-sidebar"
+      data-ea-manual="true">
+</div></div>
+  </div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-source-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Source repositories">
+    <i class="fab fa-github"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://github.com/executablebooks/jupyter-book" target="_blank"
+   class="btn btn-sm btn-source-repository-button dropdown-item"
+   title="Source repository"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="btn__text-container">Repository</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/executablebooks/jupyter-book/issues/new?title=Issue%20on%20page%20%2Ftugas_1.html&body=Your%20issue%20content%20here." target="_blank"
+   class="btn btn-sm btn-source-issues-button dropdown-item"
+   title="Open an issue"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="btn__text-container">Open issue</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="_sources/tugas_1.ipynb" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.ipynb</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button pst-navbar-icon"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
+  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
+  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
+</button>
+
+
+<button class="btn btn-sm pst-navbar-icon search-button search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+</button>
+<button class="sidebar-toggle secondary-toggle btn btn-sm pst-navbar-icon" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Tugas 1 — Scraping Berita Detik.com Kategori Sport dan Finance</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="pst-show_toc_level nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#alat-dan-library">1. Alat dan Library</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#konfigurasi-scraping">2. Konfigurasi Scraping</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#session-http">3. Session HTTP</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#normalisasi-url">4. Normalisasi URL</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#validasi-url-artikel">5. Validasi URL Artikel</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#mengumpulkan-url-artikel">6. Mengumpulkan URL Artikel</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#mengumpulkan-url-sport-dan-finance">7. Mengumpulkan URL Sport dan Finance</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#pemeriksaan-url-sebelum-ekstraksi">8. Pemeriksaan URL Sebelum Ekstraksi</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#ekstraksi-isi-artikel">9. Ekstraksi Isi Artikel</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#melakukan-ekstraksi-artikel">10. Melakukan Ekstraksi Artikel</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#validasi-hasil-ekstraksi">11. Validasi Hasil Ekstraksi</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#membentuk-dataset-sport-dan-finance">12. Membentuk Dataset Sport dan Finance</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#menyimpan-dataset-per-kategori">13. Menyimpan Dataset Per Kategori</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#menggabungkan-dataset">14. Menggabungkan Dataset</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#pemeriksaan-kualitas-dataset">15. Pemeriksaan Kualitas Dataset</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#validasi-target-dataset">16. Validasi Target Dataset</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#statistik-jumlah-kata">17. Statistik Jumlah Kata</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#statistik-panjang-artikel">18. Statistik Panjang Artikel</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#vocabulary-corpus">19. Vocabulary Corpus</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#distribusi-kategori">20. Distribusi Kategori</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#distribusi-jumlah-kata">21. Distribusi Jumlah Kata</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#sampel-dataset-akhir">22. Sampel Dataset Akhir</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#menyimpan-dataset-gabungan">23. Menyimpan Dataset Gabungan</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#membentuk-dataset-untuk">24. Membentuk Dataset untuk</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#ringkasan-hasil-scraping">25. Ringkasan Hasil Scraping</a></li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="tugas-1-scraping-berita-detik-com-kategori-sport-dan-finance">
+<h1>Tugas 1 — Scraping Berita <a class="reference external" href="http://Detik.com">Detik.com</a> Kategori Sport dan Finance<a class="headerlink" href="#tugas-1-scraping-berita-detik-com-kategori-sport-dan-finance" title="Link to this heading">#</a></h1>
+<p>Notebook ini digunakan untuk melakukan pencarian dan penambangan data berita dari website <a class="reference external" href="http://Detik.com">Detik.com</a>.</p>
+<p>Data yang dikumpulkan terdiri dari dua kategori berita, yaitu:</p>
+<ul class="simple">
+<li><p>Sport</p></li>
+<li><p>Finance</p></li>
+</ul>
+<p>Target pengumpulan data adalah 100 artikel dari kategori Sport dan 100 artikel dari kategori Finance sehingga diperoleh maksimal 200 artikel.</p>
+<p>Proses scraping meliputi:</p>
+<ol class="arabic simple">
+<li><p>Pengumpulan URL artikel.</p></li>
+<li><p>Validasi URL.</p></li>
+<li><p>Ekstraksi isi artikel menggunakan Trafilatura.</p></li>
+<li><p>Penyimpanan dataset berdasarkan kategori.</p></li>
+<li><p>Penggabungan dataset Sport dan Finance.</p></li>
+<li><p>Pemeriksaan kualitas dataset.</p></li>
+<li><p>Analisis statistik sederhana terhadap corpus berita.</p></li>
+</ol>
+<section id="alat-dan-library">
+<h2>1. Alat dan Library<a class="headerlink" href="#alat-dan-library" title="Link to this heading">#</a></h2>
+<p>Library yang digunakan dalam proses scraping adalah:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">requests</span></code> untuk melakukan HTTP request.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">BeautifulSoup4</span></code> untuk membaca dan menganalisis struktur HTML.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">trafilatura</span></code> untuk mengekstraksi teks utama artikel.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">pandas</span></code> untuk mengolah dataset.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">tqdm</span></code> untuk menampilkan progress bar.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">time</span></code> untuk memberikan jeda antar-request.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">re</span></code> untuk validasi pola URL.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">urllib.parse</span></code> untuk melakukan normalisasi dan pemeriksaan URL.</p></li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">!</span>pip<span class="w"> </span>install<span class="w"> </span>-q<span class="w"> </span>requests<span class="w"> </span>beautifulsoup4<span class="w"> </span>trafilatura<span class="w"> </span>pandas<span class="w"> </span>tqdm<span class="w"> </span>openpyxl
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">requests</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">bs4</span><span class="w"> </span><span class="kn">import</span> <span class="n">BeautifulSoup</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">trafilatura</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">time</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">re</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">os</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">tqdm</span><span class="w"> </span><span class="kn">import</span> <span class="n">tqdm</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">urllib.parse</span><span class="w"> </span><span class="kn">import</span> <span class="n">urljoin</span><span class="p">,</span> <span class="n">urlsplit</span><span class="p">,</span> <span class="n">urlunsplit</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">datetime</span><span class="w"> </span><span class="kn">import</span> <span class="n">datetime</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">"Semua library berhasil diimport."</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Semua library berhasil diimport.
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="konfigurasi-scraping">
+<h2>2. Konfigurasi Scraping<a class="headerlink" href="#konfigurasi-scraping" title="Link to this heading">#</a></h2>
+<p>Sumber data berasal dari:</p>
+<ul class="simple">
+<li><p>Detik Sport</p></li>
+<li><p>Detik Finance</p></li>
+</ul>
+<p>Masing-masing kategori ditargetkan sebanyak 100 artikel.</p>
+<p>URL artikel akan dikumpulkan terlebih dahulu sebelum dilakukan proses ekstraksi teks.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">BASE_URL_SPORT</span> <span class="o">=</span> <span class="s2">"https://sport.detik.com/"</span>
+<span class="n">BASE_URL_FINANCE</span> <span class="o">=</span> <span class="s2">"https://finance.detik.com/"</span>
+
+<span class="n">TARGET_ARTICLES</span> <span class="o">=</span> <span class="mi">100</span>
+<span class="n">MAX_PAGES</span> <span class="o">=</span> <span class="mi">50</span>
+
+<span class="n">HEADERS</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s2">"User-Agent"</span><span class="p">:</span> <span class="p">(</span>
+        <span class="s2">"Mozilla/5.0 (Windows NT 10.0; Win64; x64) "</span>
+        <span class="s2">"AppleWebKit/537.36 (KHTML, like Gecko) "</span>
+        <span class="s2">"Chrome/154.0.0.0 Safari/537.36"</span>
+    <span class="p">)</span>
+<span class="p">}</span>
+
+<span class="n">REQUEST_DELAY</span> <span class="o">=</span> <span class="mf">1.0</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">"Konfigurasi scraping berhasil dibuat."</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"Target Sport   :"</span><span class="p">,</span> <span class="n">TARGET_ARTICLES</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"Target Finance :"</span><span class="p">,</span> <span class="n">TARGET_ARTICLES</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"Maksimum halaman:"</span><span class="p">,</span> <span class="n">MAX_PAGES</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Konfigurasi scraping berhasil dibuat.
+Target Sport   : 100
+Target Finance : 100
+Maksimum halaman: 50
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="session-http">
+<h2>3. Session HTTP<a class="headerlink" href="#session-http" title="Link to this heading">#</a></h2>
+<p>Session digunakan agar koneksi HTTP dapat digunakan kembali selama proses scraping.</p>
+<p>User-Agent digunakan agar request memiliki informasi client yang wajar ketika mengakses website.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">session</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">Session</span><span class="p">()</span>
+<span class="n">session</span><span class="o">.</span><span class="n">headers</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">HEADERS</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">"HTTP Session berhasil dibuat."</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>HTTP Session berhasil dibuat.
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="normalisasi-url">
+<h2>4. Normalisasi URL<a class="headerlink" href="#normalisasi-url" title="Link to this heading">#</a></h2>
+<p>URL yang ditemukan dari halaman indeks dinormalisasi agar URL yang sama dengan query parameter atau fragment berbeda tidak dianggap sebagai artikel yang berbeda.</p>
+<p>Normalisasi dilakukan dengan mempertahankan:</p>
+<ul class="simple">
+<li><p>scheme</p></li>
+<li><p>netloc</p></li>
+<li><p>path</p></li>
+</ul>
+<p>sedangkan query dan fragment dihilangkan.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">normalize_url</span><span class="p">(</span><span class="n">url</span><span class="p">):</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="n">parts</span> <span class="o">=</span> <span class="n">urlsplit</span><span class="p">(</span><span class="n">url</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="n">urlunsplit</span><span class="p">(</span>
+            <span class="p">(</span>
+                <span class="n">parts</span><span class="o">.</span><span class="n">scheme</span><span class="o">.</span><span class="n">lower</span><span class="p">(),</span>
+                <span class="n">parts</span><span class="o">.</span><span class="n">netloc</span><span class="o">.</span><span class="n">lower</span><span class="p">(),</span>
+                <span class="n">parts</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">rstrip</span><span class="p">(</span><span class="s2">"/"</span><span class="p">),</span>
+                <span class="s2">""</span><span class="p">,</span>
+                <span class="s2">""</span>
+            <span class="p">)</span>
+        <span class="p">)</span>
+    <span class="k">except</span> <span class="ne">Exception</span><span class="p">:</span>
+        <span class="k">return</span> <span class="kc">None</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="validasi-url-artikel">
+<h2>5. Validasi URL Artikel<a class="headerlink" href="#validasi-url-artikel" title="Link to this heading">#</a></h2>
+<p>URL yang digunakan harus memenuhi beberapa kondisi:</p>
+<ul class="simple">
+<li><p>menggunakan HTTP atau HTTPS;</p></li>
+<li><p>berasal dari domain Detik yang sesuai;</p></li>
+<li><p>memiliki pola URL artikel;</p></li>
+<li><p>bukan halaman foto;</p></li>
+<li><p>bukan halaman video;</p></li>
+<li><p>belum pernah dikumpulkan sebelumnya.</p></li>
+</ul>
+<p>Validasi ini digunakan untuk mengurangi kemungkinan URL yang tidak sesuai masuk ke dataset.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">valid_article_url</span><span class="p">(</span><span class="n">url</span><span class="p">,</span> <span class="n">base_url</span><span class="p">):</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">url</span><span class="p">:</span>
+        <span class="k">return</span> <span class="kc">False</span>
+
+    <span class="n">normalized</span> <span class="o">=</span> <span class="n">normalize_url</span><span class="p">(</span><span class="n">url</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">normalized</span><span class="p">:</span>
+        <span class="k">return</span> <span class="kc">False</span>
+
+    <span class="n">parsed</span> <span class="o">=</span> <span class="n">urlsplit</span><span class="p">(</span><span class="n">normalized</span><span class="p">)</span>
+    <span class="n">base_parsed</span> <span class="o">=</span> <span class="n">urlsplit</span><span class="p">(</span><span class="n">base_url</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="n">parsed</span><span class="o">.</span><span class="n">scheme</span> <span class="ow">not</span> <span class="ow">in</span> <span class="p">[</span><span class="s2">"http"</span><span class="p">,</span> <span class="s2">"https"</span><span class="p">]:</span>
+        <span class="k">return</span> <span class="kc">False</span>
+
+    <span class="k">if</span> <span class="n">parsed</span><span class="o">.</span><span class="n">netloc</span> <span class="o">!=</span> <span class="n">base_parsed</span><span class="o">.</span><span class="n">netloc</span><span class="p">:</span>
+        <span class="k">return</span> <span class="kc">False</span>
+
+    <span class="k">if</span> <span class="s2">"foto"</span> <span class="ow">in</span> <span class="n">parsed</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">lower</span><span class="p">():</span>
+        <span class="k">return</span> <span class="kc">False</span>
+
+    <span class="k">if</span> <span class="s2">"video"</span> <span class="ow">in</span> <span class="n">parsed</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">lower</span><span class="p">():</span>
+        <span class="k">return</span> <span class="kc">False</span>
+
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">re</span><span class="o">.</span><span class="n">search</span><span class="p">(</span><span class="sa">r</span><span class="s2">"/d-\d+"</span><span class="p">,</span> <span class="n">parsed</span><span class="o">.</span><span class="n">path</span><span class="p">):</span>
+        <span class="k">return</span> <span class="kc">False</span>
+
+    <span class="k">return</span> <span class="kc">True</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="mengumpulkan-url-artikel">
+<h2>6. Mengumpulkan URL Artikel<a class="headerlink" href="#mengumpulkan-url-artikel" title="Link to this heading">#</a></h2>
+<p>Pengumpulan URL dilakukan melalui halaman indeks kategori.</p>
+<p>Proses dilakukan secara bertahap berdasarkan pagination <code class="docutils literal notranslate"><span class="pre">?page=</span></code>.</p>
+<p>URL yang telah ditemukan disimpan dalam list dan duplikasi dihindari.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">dapatkan_url_detik</span><span class="p">(</span><span class="n">url_dasar</span><span class="p">,</span> <span class="n">target_jumlah</span><span class="o">=</span><span class="mi">100</span><span class="p">):</span>
+    <span class="n">url_list</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">url_set</span> <span class="o">=</span> <span class="nb">set</span><span class="p">()</span>
+    <span class="n">halaman</span> <span class="o">=</span> <span class="mi">1</span>
+
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Mulai mencari artikel dari: </span><span class="si">{</span><span class="n">url_dasar</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+
+    <span class="k">with</span> <span class="n">tqdm</span><span class="p">(</span><span class="n">total</span><span class="o">=</span><span class="n">target_jumlah</span><span class="p">,</span> <span class="n">desc</span><span class="o">=</span><span class="s2">"Mengumpulkan URL"</span><span class="p">)</span> <span class="k">as</span> <span class="n">pbar</span><span class="p">:</span>
+
+        <span class="k">while</span> <span class="nb">len</span><span class="p">(</span><span class="n">url_list</span><span class="p">)</span> <span class="o">&lt;</span> <span class="n">target_jumlah</span> <span class="ow">and</span> <span class="n">halaman</span> <span class="o">&lt;=</span> <span class="n">MAX_PAGES</span><span class="p">:</span>
+
+            <span class="n">url_indeks</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">url_dasar</span><span class="si">}</span><span class="s2">indeks?page=</span><span class="si">{</span><span class="n">halaman</span><span class="si">}</span><span class="s2">"</span>
+
+            <span class="k">try</span><span class="p">:</span>
+                <span class="n">response</span> <span class="o">=</span> <span class="n">session</span><span class="o">.</span><span class="n">get</span><span class="p">(</span>
+                    <span class="n">url_indeks</span><span class="p">,</span>
+                    <span class="n">timeout</span><span class="o">=</span><span class="mi">15</span>
+                <span class="p">)</span>
+
+                <span class="k">if</span> <span class="n">response</span><span class="o">.</span><span class="n">status_code</span> <span class="o">!=</span> <span class="mi">200</span><span class="p">:</span>
+                    <span class="nb">print</span><span class="p">(</span>
+                        <span class="sa">f</span><span class="s2">"</span><span class="se">\n</span><span class="s2">Peringatan: status </span><span class="si">{</span><span class="n">response</span><span class="o">.</span><span class="n">status_code</span><span class="si">}</span><span class="s2"> "</span>
+                        <span class="sa">f</span><span class="s2">"pada halaman </span><span class="si">{</span><span class="n">halaman</span><span class="si">}</span><span class="s2">"</span>
+                    <span class="p">)</span>
+                    <span class="n">halaman</span> <span class="o">+=</span> <span class="mi">1</span>
+                    <span class="n">time</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="n">REQUEST_DELAY</span><span class="p">)</span>
+                    <span class="k">continue</span>
+
+                <span class="n">soup</span> <span class="o">=</span> <span class="n">BeautifulSoup</span><span class="p">(</span>
+                    <span class="n">response</span><span class="o">.</span><span class="n">text</span><span class="p">,</span>
+                    <span class="s2">"html.parser"</span>
+                <span class="p">)</span>
+
+                <span class="n">artikel_elemen</span> <span class="o">=</span> <span class="n">soup</span><span class="o">.</span><span class="n">find_all</span><span class="p">(</span><span class="s2">"article"</span><span class="p">)</span>
+
+                <span class="k">if</span> <span class="ow">not</span> <span class="n">artikel_elemen</span><span class="p">:</span>
+                    <span class="nb">print</span><span class="p">(</span>
+                        <span class="sa">f</span><span class="s2">"</span><span class="se">\n</span><span class="s2">Tidak menemukan elemen artikel "</span>
+                        <span class="sa">f</span><span class="s2">"pada halaman </span><span class="si">{</span><span class="n">halaman</span><span class="si">}</span><span class="s2">."</span>
+                    <span class="p">)</span>
+                    <span class="n">halaman</span> <span class="o">+=</span> <span class="mi">1</span>
+                    <span class="n">time</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="n">REQUEST_DELAY</span><span class="p">)</span>
+                    <span class="k">continue</span>
+
+                <span class="n">jumlah_sebelum</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">url_list</span><span class="p">)</span>
+
+                <span class="k">for</span> <span class="n">artikel</span> <span class="ow">in</span> <span class="n">artikel_elemen</span><span class="p">:</span>
+
+                    <span class="n">link</span> <span class="o">=</span> <span class="kc">None</span>
+
+                    <span class="k">if</span> <span class="n">artikel</span><span class="o">.</span><span class="n">has_attr</span><span class="p">(</span><span class="s2">"i-link"</span><span class="p">):</span>
+                        <span class="n">link</span> <span class="o">=</span> <span class="n">artikel</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"i-link"</span><span class="p">)</span>
+
+                    <span class="k">if</span> <span class="ow">not</span> <span class="n">link</span><span class="p">:</span>
+                        <span class="n">tag_a</span> <span class="o">=</span> <span class="n">artikel</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="s2">"a"</span><span class="p">,</span> <span class="n">href</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+                        <span class="k">if</span> <span class="n">tag_a</span><span class="p">:</span>
+                            <span class="n">link</span> <span class="o">=</span> <span class="n">tag_a</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"href"</span><span class="p">)</span>
+
+                    <span class="k">if</span> <span class="n">link</span><span class="p">:</span>
+                        <span class="n">link</span> <span class="o">=</span> <span class="n">urljoin</span><span class="p">(</span>
+                            <span class="n">url_dasar</span><span class="p">,</span>
+                            <span class="n">link</span>
+                        <span class="p">)</span>
+
+                        <span class="n">link</span> <span class="o">=</span> <span class="n">normalize_url</span><span class="p">(</span><span class="n">link</span><span class="p">)</span>
+
+                    <span class="k">if</span> <span class="p">(</span>
+                        <span class="n">valid_article_url</span><span class="p">(</span>
+                            <span class="n">link</span><span class="p">,</span>
+                            <span class="n">url_dasar</span>
+                        <span class="p">)</span>
+                        <span class="ow">and</span> <span class="n">link</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">url_set</span>
+                    <span class="p">):</span>
+                        <span class="n">url_set</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">link</span><span class="p">)</span>
+                        <span class="n">url_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">link</span><span class="p">)</span>
+                        <span class="n">pbar</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+
+                    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">url_list</span><span class="p">)</span> <span class="o">&gt;=</span> <span class="n">target_jumlah</span><span class="p">:</span>
+                        <span class="k">break</span>
+
+                <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">url_list</span><span class="p">)</span> <span class="o">==</span> <span class="n">jumlah_sebelum</span><span class="p">:</span>
+                    <span class="nb">print</span><span class="p">(</span>
+                        <span class="sa">f</span><span class="s2">"</span><span class="se">\n</span><span class="s2">Tidak ada URL baru pada halaman </span><span class="si">{</span><span class="n">halaman</span><span class="si">}</span><span class="s2">."</span>
+                    <span class="p">)</span>
+
+                <span class="n">halaman</span> <span class="o">+=</span> <span class="mi">1</span>
+                <span class="n">time</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="n">REQUEST_DELAY</span><span class="p">)</span>
+
+            <span class="k">except</span> <span class="n">requests</span><span class="o">.</span><span class="n">RequestException</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+                <span class="nb">print</span><span class="p">(</span>
+                    <span class="sa">f</span><span class="s2">"</span><span class="se">\n</span><span class="s2">Gagal mengakses halaman </span><span class="si">{</span><span class="n">halaman</span><span class="si">}</span><span class="s2">: </span><span class="si">{</span><span class="n">e</span><span class="si">}</span><span class="s2">"</span>
+                <span class="p">)</span>
+                <span class="n">halaman</span> <span class="o">+=</span> <span class="mi">1</span>
+                <span class="n">time</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="n">REQUEST_DELAY</span><span class="p">)</span>
+
+            <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+                <span class="nb">print</span><span class="p">(</span>
+                    <span class="sa">f</span><span class="s2">"</span><span class="se">\n</span><span class="s2">Terjadi kesalahan pada halaman </span><span class="si">{</span><span class="n">halaman</span><span class="si">}</span><span class="s2">: </span><span class="si">{</span><span class="n">e</span><span class="si">}</span><span class="s2">"</span>
+                <span class="p">)</span>
+                <span class="n">halaman</span> <span class="o">+=</span> <span class="mi">1</span>
+                <span class="n">time</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="n">REQUEST_DELAY</span><span class="p">)</span>
+
+    <span class="nb">print</span><span class="p">(</span>
+        <span class="sa">f</span><span class="s2">"</span><span class="se">\n</span><span class="s2">URL berhasil dikumpulkan: </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">url_list</span><span class="p">)</span><span class="si">}</span><span class="s2">"</span>
+    <span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">url_list</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="mengumpulkan-url-sport-dan-finance">
+<h2>7. Mengumpulkan URL Sport dan Finance<a class="headerlink" href="#mengumpulkan-url-sport-dan-finance" title="Link to this heading">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">url_sport</span> <span class="o">=</span> <span class="n">dapatkan_url_detik</span><span class="p">(</span>
+    <span class="n">BASE_URL_SPORT</span><span class="p">,</span>
+    <span class="n">TARGET_ARTICLES</span>
+<span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">"</span><span class="se">\n</span><span class="s2">"</span> <span class="o">+</span> <span class="s2">"="</span> <span class="o">*</span> <span class="mi">60</span><span class="p">)</span>
+
+<span class="n">url_finance</span> <span class="o">=</span> <span class="n">dapatkan_url_detik</span><span class="p">(</span>
+    <span class="n">BASE_URL_FINANCE</span><span class="p">,</span>
+    <span class="n">TARGET_ARTICLES</span>
+<span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">"</span><span class="se">\n</span><span class="s2">=== HASIL PENGUMPULAN URL ==="</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"URL Sport   :"</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">url_sport</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"URL Finance :"</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">url_finance</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Mulai mencari artikel dari: https://sport.detik.com/
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Mengumpulkan URL:   0%| | 0/100 [00:00&lt;?, 
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Mengumpulkan URL:   1%| | 1/100 [00:00&lt;00:
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Mengumpulkan URL:  16%|▏| 16/100 [00:01&lt;00
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Mengumpulkan URL:  32%|▎| 32/100 [00:03&lt;00
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Mengumpulkan URL:  50%|▌| 50/100 [00:04&lt;00
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Mengumpulkan URL:  70%|▋| 70/100 [00:06&lt;00
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Mengumpulkan URL:  89%|▉| 89/100 [00:07&lt;00
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Mengumpulkan URL: 100%|█| 100/100 [00:08&lt;0
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>URL berhasil dikumpulkan: 100
+
+============================================================
+Mulai mencari artikel dari: https://finance.detik.com/
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Mengumpulkan URL:   0%| | 0/100 [00:00&lt;?, 
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Mengumpulkan URL:   1%| | 1/100 [00:00&lt;00:
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Mengumpulkan URL:  20%|▏| 20/100 [00:01&lt;00
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Mengumpulkan URL:  40%|▍| 40/100 [00:03&lt;00
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Mengumpulkan URL:  60%|▌| 60/100 [00:04&lt;00
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Mengumpulkan URL:  79%|▊| 79/100 [00:06&lt;00
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Mengumpulkan URL:  99%|▉| 99/100 [00:07&lt;00
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Mengumpulkan URL: 100%|█| 100/100 [00:08&lt;0
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>URL berhasil dikumpulkan: 100
+
+=== HASIL PENGUMPULAN URL ===
+URL Sport   : 100
+URL Finance : 100
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="pemeriksaan-url-sebelum-ekstraksi">
+<h2>8. Pemeriksaan URL Sebelum Ekstraksi<a class="headerlink" href="#pemeriksaan-url-sebelum-ekstraksi" title="Link to this heading">#</a></h2>
+<p>Sebelum mengambil isi artikel, dilakukan pemeriksaan terhadap URL yang berhasil dikumpulkan.</p>
+<p>Pemeriksaan meliputi:</p>
+<ul class="simple">
+<li><p>jumlah URL;</p></li>
+<li><p>URL duplikat;</p></li>
+<li><p>URL kosong;</p></li>
+<li><p>domain URL;</p></li>
+<li><p>distribusi kategori.</p></li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">periksa_url</span><span class="p">(</span><span class="n">url_list</span><span class="p">,</span> <span class="n">nama_kategori</span><span class="p">,</span> <span class="n">base_url</span><span class="p">):</span>
+    <span class="n">df_url</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span>
+        <span class="s2">"url"</span><span class="p">:</span> <span class="n">url_list</span>
+    <span class="p">})</span>
+
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"=== PEMERIKSAAN URL </span><span class="si">{</span><span class="n">nama_kategori</span><span class="o">.</span><span class="n">upper</span><span class="p">()</span><span class="si">}</span><span class="s2"> ==="</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">"Jumlah URL :"</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">df_url</span><span class="p">))</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">"URL kosong :"</span><span class="p">,</span> <span class="n">df_url</span><span class="p">[</span><span class="s2">"url"</span><span class="p">]</span><span class="o">.</span><span class="n">isna</span><span class="p">()</span><span class="o">.</span><span class="n">sum</span><span class="p">())</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">"URL duplikat :"</span><span class="p">,</span> <span class="n">df_url</span><span class="p">[</span><span class="s2">"url"</span><span class="p">]</span><span class="o">.</span><span class="n">duplicated</span><span class="p">()</span><span class="o">.</span><span class="n">sum</span><span class="p">())</span>
+
+    <span class="n">domain_valid</span> <span class="o">=</span> <span class="n">df_url</span><span class="p">[</span><span class="s2">"url"</span><span class="p">]</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span>
+        <span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="p">(</span>
+            <span class="nb">isinstance</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="nb">str</span><span class="p">)</span>
+            <span class="ow">and</span> <span class="n">urlsplit</span><span class="p">(</span><span class="n">x</span><span class="p">)</span><span class="o">.</span><span class="n">netloc</span> <span class="o">==</span> <span class="n">urlsplit</span><span class="p">(</span><span class="n">base_url</span><span class="p">)</span><span class="o">.</span><span class="n">netloc</span>
+        <span class="p">)</span>
+    <span class="p">)</span>
+
+    <span class="nb">print</span><span class="p">(</span><span class="s2">"URL dengan domain valid :"</span><span class="p">,</span> <span class="n">domain_valid</span><span class="o">.</span><span class="n">sum</span><span class="p">())</span>
+
+    <span class="k">return</span> <span class="n">df_url</span>
+
+
+<span class="n">df_url_sport</span> <span class="o">=</span> <span class="n">periksa_url</span><span class="p">(</span>
+    <span class="n">url_sport</span><span class="p">,</span>
+    <span class="s2">"sport"</span><span class="p">,</span>
+    <span class="n">BASE_URL_SPORT</span>
+<span class="p">)</span>
+
+<span class="nb">print</span><span class="p">()</span>
+
+<span class="n">df_url_finance</span> <span class="o">=</span> <span class="n">periksa_url</span><span class="p">(</span>
+    <span class="n">url_finance</span><span class="p">,</span>
+    <span class="s2">"finance"</span><span class="p">,</span>
+    <span class="n">BASE_URL_FINANCE</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>=== PEMERIKSAAN URL SPORT ===
+Jumlah URL : 100
+URL kosong : 0
+URL duplikat : 0
+URL dengan domain valid : 100
+
+=== PEMERIKSAAN URL FINANCE ===
+Jumlah URL : 100
+URL kosong : 0
+URL duplikat : 0
+URL dengan domain valid : 100
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="ekstraksi-isi-artikel">
+<h2>9. Ekstraksi Isi Artikel<a class="headerlink" href="#ekstraksi-isi-artikel" title="Link to this heading">#</a></h2>
+<p>Isi artikel diekstraksi menggunakan Trafilatura.</p>
+<p>Trafilatura digunakan untuk memperoleh teks utama artikel dan mengurangi elemen non-konten dari halaman web.</p>
+<p>Artikel yang gagal diunduh atau tidak menghasilkan teks tidak dimasukkan ke dataset.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">bersihkan_teks</span><span class="p">(</span><span class="n">teks</span><span class="p">):</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">teks</span><span class="p">:</span>
+        <span class="k">return</span> <span class="kc">None</span>
+
+    <span class="n">teks</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">teks</span><span class="p">)</span>
+
+    <span class="n">teks</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">sub</span><span class="p">(</span>
+        <span class="sa">r</span><span class="s2">"\s+"</span><span class="p">,</span>
+        <span class="s2">" "</span><span class="p">,</span>
+        <span class="n">teks</span>
+    <span class="p">)</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span>
+
+    <span class="n">teks</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">sub</span><span class="p">(</span>
+        <span class="sa">r</span><span class="s2">"ADVERTISEMENT"</span><span class="p">,</span>
+        <span class="s2">" "</span><span class="p">,</span>
+        <span class="n">teks</span><span class="p">,</span>
+        <span class="n">flags</span><span class="o">=</span><span class="n">re</span><span class="o">.</span><span class="n">IGNORECASE</span>
+    <span class="p">)</span>
+
+    <span class="n">teks</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">sub</span><span class="p">(</span>
+        <span class="sa">r</span><span class="s2">"SCROLL TO CONTINUE WITH CONTENT"</span><span class="p">,</span>
+        <span class="s2">" "</span><span class="p">,</span>
+        <span class="n">teks</span><span class="p">,</span>
+        <span class="n">flags</span><span class="o">=</span><span class="n">re</span><span class="o">.</span><span class="n">IGNORECASE</span>
+    <span class="p">)</span>
+
+    <span class="n">teks</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">sub</span><span class="p">(</span>
+        <span class="sa">r</span><span class="s2">"\s+"</span><span class="p">,</span>
+        <span class="s2">" "</span><span class="p">,</span>
+        <span class="n">teks</span>
+    <span class="p">)</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span>
+
+    <span class="k">return</span> <span class="n">teks</span> <span class="k">if</span> <span class="n">teks</span> <span class="k">else</span> <span class="kc">None</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">ekstrak_teks_trafilatura</span><span class="p">(</span>
+    <span class="n">url_list</span><span class="p">,</span>
+    <span class="n">kategori</span><span class="p">,</span>
+    <span class="n">delay</span><span class="o">=</span><span class="n">REQUEST_DELAY</span>
+<span class="p">):</span>
+    <span class="n">data_ekstrak</span> <span class="o">=</span> <span class="p">[]</span>
+
+    <span class="k">for</span> <span class="n">url</span> <span class="ow">in</span> <span class="n">tqdm</span><span class="p">(</span>
+        <span class="n">url_list</span><span class="p">,</span>
+        <span class="n">desc</span><span class="o">=</span><span class="sa">f</span><span class="s2">"Ekstraksi teks </span><span class="si">{</span><span class="n">kategori</span><span class="si">}</span><span class="s2">"</span>
+    <span class="p">):</span>
+
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">downloaded</span> <span class="o">=</span> <span class="n">trafilatura</span><span class="o">.</span><span class="n">fetch_url</span><span class="p">(</span><span class="n">url</span><span class="p">)</span>
+
+            <span class="k">if</span> <span class="n">downloaded</span><span class="p">:</span>
+                <span class="n">teks</span> <span class="o">=</span> <span class="n">trafilatura</span><span class="o">.</span><span class="n">extract</span><span class="p">(</span>
+                    <span class="n">downloaded</span>
+                <span class="p">)</span>
+
+                <span class="n">teks_bersih</span> <span class="o">=</span> <span class="n">bersihkan_teks</span><span class="p">(</span>
+                    <span class="n">teks</span>
+                <span class="p">)</span>
+
+                <span class="k">if</span> <span class="p">(</span>
+                    <span class="n">teks_bersih</span>
+                    <span class="ow">and</span> <span class="nb">len</span><span class="p">(</span><span class="n">teks_bersih</span><span class="p">)</span> <span class="o">&gt;=</span> <span class="mi">100</span>
+                <span class="p">):</span>
+                    <span class="n">data_ekstrak</span><span class="o">.</span><span class="n">append</span><span class="p">({</span>
+                        <span class="s2">"kategori"</span><span class="p">:</span> <span class="n">kategori</span><span class="p">,</span>
+                        <span class="s2">"url"</span><span class="p">:</span> <span class="n">url</span><span class="p">,</span>
+                        <span class="s2">"teks"</span><span class="p">:</span> <span class="n">teks_bersih</span>
+                    <span class="p">})</span>
+
+        <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span>
+                <span class="sa">f</span><span class="s2">"</span><span class="se">\n</span><span class="s2">Gagal mengekstrak </span><span class="si">{</span><span class="n">url</span><span class="si">}</span><span class="s2">: </span><span class="si">{</span><span class="n">e</span><span class="si">}</span><span class="s2">"</span>
+            <span class="p">)</span>
+
+        <span class="n">time</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="n">delay</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">data_ekstrak</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="melakukan-ekstraksi-artikel">
+<h2>10. Melakukan Ekstraksi Artikel<a class="headerlink" href="#melakukan-ekstraksi-artikel" title="Link to this heading">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">data_sport</span> <span class="o">=</span> <span class="n">ekstrak_teks_trafilatura</span><span class="p">(</span>
+    <span class="n">url_sport</span><span class="p">,</span>
+    <span class="s2">"sport"</span>
+<span class="p">)</span>
+
+<span class="n">data_finance</span> <span class="o">=</span> <span class="n">ekstrak_teks_trafilatura</span><span class="p">(</span>
+    <span class="n">url_finance</span><span class="p">,</span>
+    <span class="s2">"finance"</span>
+<span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">"</span><span class="se">\n</span><span class="s2">=== HASIL EKSTRAKSI ==="</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"Artikel Sport berhasil   :"</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">data_sport</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"Artikel Finance berhasil :"</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">data_finance</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Ekstraksi teks sport:   0%| | 0/100 [00:00
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Ekstraksi teks sport:   1%| | 1/100 [00:01
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Ekstraksi teks sport:   2%| | 2/100 [00:02
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Ekstraksi teks sport:   3%| | 3/100 [00:03
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Ekstraksi teks sport:   4%| | 4/100 [00:05
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Ekstraksi teks sport:   5%| | 5/100 [00:06
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Ekstraksi teks sport:   6%| | 6/100 [00:07
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Ekstraksi teks sport:   7%| | 7/100 [00:09
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Ekstraksi teks sport:   8%| | 8/100 [00:10
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Ekstraksi teks sport:   9%| | 9/100 [00:11
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Ekstraksi teks sport:  10%| | 10/100 [00:1
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Ekstraksi teks sport:  11%| | 11/100 [00:1
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Ekstraksi teks sport:  12%| | 12/100 [00:1
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Ekstraksi teks sport:  13%|▏| 13/100 [00:1
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Ekstraksi teks sport:  14%|▏| 14/100 [00:1
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Ekstraksi teks sport:  15%|▏| 15/100 [00:1
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Ekstraksi teks sport:  16%|▏| 16/100 [00:2
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Ekstraksi teks sport:  17%|▏| 17/100 [00:2
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Ekstraksi teks sport:  18%|▏| 18/100 [00:2
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Ekstraksi teks sport:  19%|▏| 19/100 [00:2
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Ekstraksi teks sport:  20%|▏| 20/100 [00:2
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Ekstraksi teks sport:  21%|▏| 21/100 [00:2
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Ekstraksi teks sport:  22%|▏| 22/100 [00:2
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Ekstraksi teks sport:  23%|▏| 23/100 [00:2
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Ekstraksi teks sport:  23%|▏| 23/100 [00:2
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>
+</pre></div>
+</div>
+<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
+<span class="ne">KeyboardInterrupt</span><span class="g g-Whitespace">                         </span>Traceback (most recent call last)
+<span class="n">Cell</span> <span class="n">In</span><span class="p">[</span><span class="mi">12</span><span class="p">],</span> <span class="n">line</span> <span class="mi">1</span>
+<span class="ne">----&gt; </span><span class="mi">1</span> <span class="n">data_sport</span> <span class="o">=</span> <span class="n">ekstrak_teks_trafilatura</span><span class="p">(</span>
+<span class="g g-Whitespace">      </span><span class="mi">2</span>     <span class="n">url_sport</span><span class="p">,</span>
+<span class="g g-Whitespace">      </span><span class="mi">3</span>     <span class="s2">"sport"</span>
+<span class="g g-Whitespace">      </span><span class="mi">4</span> <span class="p">)</span>
+
+<span class="nn">Cell In[11], line 35,</span> in <span class="ni">ekstrak_teks_trafilatura</span><span class="nt">(url_list, kategori, delay)</span>
+<span class="g g-Whitespace">     </span><span class="mi">31</span>                         <span class="s2">"url"</span><span class="p">:</span> <span class="n">url</span><span class="p">,</span>
+<span class="g g-Whitespace">     </span><span class="mi">32</span>                         <span class="s2">"teks"</span><span class="p">:</span> <span class="n">teks_bersih</span>
+<span class="g g-Whitespace">     </span><span class="mi">33</span>                     <span class="p">})</span>
+<span class="g g-Whitespace">     </span><span class="mi">34</span> 
+<span class="ne">---&gt; </span><span class="mi">35</span>         <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+<span class="g g-Whitespace">     </span><span class="mi">36</span>             <span class="nb">print</span><span class="p">(</span>
+<span class="g g-Whitespace">     </span><span class="mi">37</span>                 <span class="sa">f</span><span class="s2">"</span><span class="se">\n</span><span class="s2">Gagal mengekstrak </span><span class="si">{</span><span class="n">url</span><span class="si">}</span><span class="s2">: </span><span class="si">{</span><span class="n">e</span><span class="si">}</span><span class="s2">"</span>
+<span class="g g-Whitespace">     </span><span class="mi">38</span>             <span class="p">)</span>
+
+<span class="nn">File /workspaces/Pencarian-Penambangan-Web/envwebmining312/lib/python3.12/site-packages/trafilatura/downloads.py:283,</span> in <span class="ni">fetch_url</span><span class="nt">(url, no_ssl, config, options)</span>
+<span class="g g-Whitespace">    </span><span class="mi">270</span><span class="w"> </span><span class="sd">"""Downloads a web page and seamlessly decodes the response.</span>
+<span class="g g-Whitespace">    </span><span class="mi">271</span><span class="sd"> </span>
+<span class="g g-Whitespace">    </span><span class="mi">272</span><span class="sd"> Args:</span>
+<span class="sd">   (...)    280 </span>
+<span class="g g-Whitespace">    </span><span class="mi">281</span><span class="sd"> """</span>
+<span class="g g-Whitespace">    </span><span class="mi">282</span> <span class="n">config</span> <span class="o">=</span> <span class="n">options</span><span class="o">.</span><span class="n">config</span> <span class="k">if</span> <span class="n">options</span> <span class="k">else</span> <span class="n">config</span>
+<span class="ne">--&gt; </span><span class="mi">283</span> <span class="n">response</span> <span class="o">=</span> <span class="n">fetch_response</span><span class="p">(</span><span class="n">url</span><span class="p">,</span> <span class="n">decode</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">no_ssl</span><span class="o">=</span><span class="n">no_ssl</span><span class="p">,</span> <span class="n">config</span><span class="o">=</span><span class="n">config</span><span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">284</span> <span class="k">if</span> <span class="ow">not</span> <span class="n">response</span> <span class="ow">or</span> <span class="ow">not</span> <span class="n">response</span><span class="o">.</span><span class="n">data</span><span class="p">:</span>
+<span class="g g-Whitespace">    </span><span class="mi">285</span>     <span class="k">return</span> <span class="kc">None</span>
+
+<span class="nn">File /workspaces/Pencarian-Penambangan-Web/envwebmining312/lib/python3.12/site-packages/trafilatura/downloads.py:314,</span> in <span class="ni">fetch_response</span><span class="nt">(url, decode, no_ssl, with_headers, config)</span>
+<span class="g g-Whitespace">    </span><span class="mi">312</span> <span class="n">LOGGER</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">"sending request: </span><span class="si">%s</span><span class="s2">"</span><span class="p">,</span> <span class="n">url</span><span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">313</span> <span class="k">try</span><span class="p">:</span>
+<span class="ne">--&gt; </span><span class="mi">314</span>     <span class="n">response</span> <span class="o">=</span> <span class="n">dl_function</span><span class="p">(</span><span class="n">url</span><span class="p">,</span> <span class="n">no_ssl</span><span class="p">,</span> <span class="n">config</span><span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">315</span> <span class="k">except</span> <span class="n">_SSLRetryError</span> <span class="k">as</span> <span class="n">err</span><span class="p">:</span>
+<span class="g g-Whitespace">    </span><span class="mi">316</span>     <span class="k">if</span> <span class="ow">not</span> <span class="n">config</span><span class="o">.</span><span class="n">getboolean</span><span class="p">(</span><span class="s2">"DEFAULT"</span><span class="p">,</span> <span class="s2">"INSECURE_SSL_FALLBACK"</span><span class="p">,</span> <span class="n">fallback</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
+
+<span class="nn">File /workspaces/Pencarian-Penambangan-Web/envwebmining312/lib/python3.12/site-packages/trafilatura/downloads.py:223,</span> in <span class="ni">_send_urllib_request</span><span class="nt">(url, no_ssl, config)</span>
+<span class="g g-Whitespace">    </span><span class="mi">220</span> <span class="n">pool_manager</span> <span class="o">=</span> <span class="n">_initiate_pool</span><span class="p">(</span><span class="n">config</span><span class="p">,</span> <span class="n">no_ssl</span><span class="o">=</span><span class="n">no_ssl</span><span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">222</span> <span class="c1"># execute request, stop downloading as soon as MAX_FILE_SIZE is reached</span>
+<span class="ne">--&gt; </span><span class="mi">223</span> <span class="n">response</span> <span class="o">=</span> <span class="n">pool_manager</span><span class="o">.</span><span class="n">request</span><span class="p">(</span>
+<span class="g g-Whitespace">    </span><span class="mi">224</span>     <span class="s2">"GET"</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">225</span>     <span class="n">url</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">226</span>     <span class="n">headers</span><span class="o">=</span><span class="n">_determine_headers</span><span class="p">(</span><span class="n">config</span><span class="p">),</span>
+<span class="g g-Whitespace">    </span><span class="mi">227</span>     <span class="n">retries</span><span class="o">=</span><span class="n">_get_retry_strategy</span><span class="p">(</span><span class="n">config</span><span class="p">),</span>
+<span class="g g-Whitespace">    </span><span class="mi">228</span>     <span class="n">timeout</span><span class="o">=</span><span class="n">config</span><span class="o">.</span><span class="n">getint</span><span class="p">(</span><span class="s2">"DEFAULT"</span><span class="p">,</span> <span class="s2">"DOWNLOAD_TIMEOUT"</span><span class="p">),</span>
+<span class="g g-Whitespace">    </span><span class="mi">229</span>     <span class="n">preload_content</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">230</span> <span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">231</span> <span class="k">try</span><span class="p">:</span>
+<span class="g g-Whitespace">    </span><span class="mi">232</span>     <span class="c1"># stream() yields decoded chunks: the cap applies to decompressed bytes</span>
+<span class="g g-Whitespace">    </span><span class="mi">233</span>     <span class="n">data</span> <span class="o">=</span> <span class="n">_capped</span><span class="p">(</span><span class="n">response</span><span class="o">.</span><span class="n">stream</span><span class="p">(</span><span class="mi">2</span><span class="o">**</span><span class="mi">17</span><span class="p">),</span> <span class="n">config</span><span class="o">.</span><span class="n">getint</span><span class="p">(</span><span class="s2">"DEFAULT"</span><span class="p">,</span> <span class="s2">"MAX_FILE_SIZE"</span><span class="p">))</span>
+
+<span class="nn">File /workspaces/Pencarian-Penambangan-Web/envwebmining312/lib/python3.12/site-packages/urllib3/_request_methods.py:135,</span> in <span class="ni">RequestMethods.request</span><span class="nt">(self, method, url, body, fields, headers, json, **urlopen_kw)</span>
+<span class="g g-Whitespace">    </span><span class="mi">132</span>     <span class="n">urlopen_kw</span><span class="p">[</span><span class="s2">"body"</span><span class="p">]</span> <span class="o">=</span> <span class="n">body</span>
+<span class="g g-Whitespace">    </span><span class="mi">134</span> <span class="k">if</span> <span class="n">method</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_encode_url_methods</span><span class="p">:</span>
+<span class="ne">--&gt; </span><span class="mi">135</span>     <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">request_encode_url</span><span class="p">(</span>
+<span class="g g-Whitespace">    </span><span class="mi">136</span>         <span class="n">method</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">137</span>         <span class="n">url</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">138</span>         <span class="n">fields</span><span class="o">=</span><span class="n">fields</span><span class="p">,</span>  <span class="c1"># type: ignore[arg-type]</span>
+<span class="g g-Whitespace">    </span><span class="mi">139</span>         <span class="n">headers</span><span class="o">=</span><span class="n">headers</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">140</span>         <span class="o">**</span><span class="n">urlopen_kw</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">141</span>     <span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">142</span> <span class="k">else</span><span class="p">:</span>
+<span class="g g-Whitespace">    </span><span class="mi">143</span>     <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">request_encode_body</span><span class="p">(</span>
+<span class="g g-Whitespace">    </span><span class="mi">144</span>         <span class="n">method</span><span class="p">,</span> <span class="n">url</span><span class="p">,</span> <span class="n">fields</span><span class="o">=</span><span class="n">fields</span><span class="p">,</span> <span class="n">headers</span><span class="o">=</span><span class="n">headers</span><span class="p">,</span> <span class="o">**</span><span class="n">urlopen_kw</span>
+<span class="g g-Whitespace">    </span><span class="mi">145</span>     <span class="p">)</span>
+
+<span class="nn">File /workspaces/Pencarian-Penambangan-Web/envwebmining312/lib/python3.12/site-packages/urllib3/_request_methods.py:182,</span> in <span class="ni">RequestMethods.request_encode_url</span><span class="nt">(self, method, url, fields, headers, **urlopen_kw)</span>
+<span class="g g-Whitespace">    </span><span class="mi">179</span> <span class="k">if</span> <span class="n">fields</span><span class="p">:</span>
+<span class="g g-Whitespace">    </span><span class="mi">180</span>     <span class="n">url</span> <span class="o">+=</span> <span class="s2">"?"</span> <span class="o">+</span> <span class="n">urlencode</span><span class="p">(</span><span class="n">fields</span><span class="p">)</span>
+<span class="ne">--&gt; </span><span class="mi">182</span> <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">urlopen</span><span class="p">(</span><span class="n">method</span><span class="p">,</span> <span class="n">url</span><span class="p">,</span> <span class="o">**</span><span class="n">extra_kw</span><span class="p">)</span>
+
+<span class="nn">File /workspaces/Pencarian-Penambangan-Web/envwebmining312/lib/python3.12/site-packages/urllib3/poolmanager.py:459,</span> in <span class="ni">PoolManager.urlopen</span><span class="nt">(self, method, url, redirect, **kw)</span>
+<span class="g g-Whitespace">    </span><span class="mi">457</span>     <span class="n">response</span> <span class="o">=</span> <span class="n">conn</span><span class="o">.</span><span class="n">urlopen</span><span class="p">(</span><span class="n">method</span><span class="p">,</span> <span class="n">u</span><span class="o">.</span><span class="n">_replace</span><span class="p">(</span><span class="n">fragment</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span><span class="o">.</span><span class="n">url</span><span class="p">,</span> <span class="o">**</span><span class="n">kw</span><span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">458</span> <span class="k">else</span><span class="p">:</span>
+<span class="ne">--&gt; </span><span class="mi">459</span>     <span class="n">response</span> <span class="o">=</span> <span class="n">conn</span><span class="o">.</span><span class="n">urlopen</span><span class="p">(</span><span class="n">method</span><span class="p">,</span> <span class="n">u</span><span class="o">.</span><span class="n">request_uri</span><span class="p">,</span> <span class="o">**</span><span class="n">kw</span><span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">461</span> <span class="n">redirect_location</span> <span class="o">=</span> <span class="n">redirect</span> <span class="ow">and</span> <span class="n">response</span><span class="o">.</span><span class="n">get_redirect_location</span><span class="p">()</span>
+<span class="g g-Whitespace">    </span><span class="mi">462</span> <span class="k">if</span> <span class="ow">not</span> <span class="n">redirect_location</span><span class="p">:</span>
+
+<span class="nn">File /workspaces/Pencarian-Penambangan-Web/envwebmining312/lib/python3.12/site-packages/urllib3/connectionpool.py:793,</span> in <span class="ni">HTTPConnectionPool.urlopen</span><span class="nt">(self, method, url, body, headers, retries, redirect, assert_same_host, timeout, pool_timeout, release_conn, chunked, body_pos, preload_content, decode_content, **response_kw)</span>
+<span class="g g-Whitespace">    </span><span class="mi">790</span> <span class="n">response_conn</span> <span class="o">=</span> <span class="n">conn</span> <span class="k">if</span> <span class="ow">not</span> <span class="n">release_conn</span> <span class="k">else</span> <span class="kc">None</span>
+<span class="g g-Whitespace">    </span><span class="mi">792</span> <span class="c1"># Make the request on the HTTPConnection object</span>
+<span class="ne">--&gt; </span><span class="mi">793</span> <span class="n">response</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_make_request</span><span class="p">(</span>
+<span class="g g-Whitespace">    </span><span class="mi">794</span>     <span class="n">conn</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">795</span>     <span class="n">method</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">796</span>     <span class="n">url</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">797</span>     <span class="n">timeout</span><span class="o">=</span><span class="n">timeout_obj</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">798</span>     <span class="n">body</span><span class="o">=</span><span class="n">body</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">799</span>     <span class="n">headers</span><span class="o">=</span><span class="n">headers</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">800</span>     <span class="n">chunked</span><span class="o">=</span><span class="n">chunked</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">801</span>     <span class="n">retries</span><span class="o">=</span><span class="n">retries</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">802</span>     <span class="n">response_conn</span><span class="o">=</span><span class="n">response_conn</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">803</span>     <span class="n">preload_content</span><span class="o">=</span><span class="n">preload_content</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">804</span>     <span class="n">decode_content</span><span class="o">=</span><span class="n">decode_content</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">805</span>     <span class="o">**</span><span class="n">response_kw</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">806</span> <span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">808</span> <span class="c1"># Everything went great!</span>
+<span class="g g-Whitespace">    </span><span class="mi">809</span> <span class="n">clean_exit</span> <span class="o">=</span> <span class="kc">True</span>
+
+<span class="nn">File /workspaces/Pencarian-Penambangan-Web/envwebmining312/lib/python3.12/site-packages/urllib3/connectionpool.py:540,</span> in <span class="ni">HTTPConnectionPool._make_request</span><span class="nt">(self, conn, method, url, body, headers, retries, timeout, chunked, response_conn, preload_content, decode_content, enforce_content_length)</span>
+<span class="g g-Whitespace">    </span><span class="mi">538</span> <span class="c1"># Receive the response from the server</span>
+<span class="g g-Whitespace">    </span><span class="mi">539</span> <span class="k">try</span><span class="p">:</span>
+<span class="ne">--&gt; </span><span class="mi">540</span>     <span class="n">response</span> <span class="o">=</span> <span class="n">conn</span><span class="o">.</span><span class="n">getresponse</span><span class="p">()</span>
+<span class="g g-Whitespace">    </span><span class="mi">541</span> <span class="k">except</span> <span class="p">(</span><span class="n">BaseSSLError</span><span class="p">,</span> <span class="ne">OSError</span><span class="p">)</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+<span class="g g-Whitespace">    </span><span class="mi">542</span>     <span class="bp">self</span><span class="o">.</span><span class="n">_raise_timeout</span><span class="p">(</span><span class="n">err</span><span class="o">=</span><span class="n">e</span><span class="p">,</span> <span class="n">url</span><span class="o">=</span><span class="n">url</span><span class="p">,</span> <span class="n">timeout_value</span><span class="o">=</span><span class="n">read_timeout</span><span class="p">)</span>
+
+<span class="nn">File /workspaces/Pencarian-Penambangan-Web/envwebmining312/lib/python3.12/site-packages/urllib3/connection.py:638,</span> in <span class="ni">HTTPConnection.getresponse</span><span class="nt">(self)</span>
+<span class="g g-Whitespace">    </span><span class="mi">635</span> <span class="n">_shutdown</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">sock</span><span class="p">,</span> <span class="s2">"shutdown"</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">637</span> <span class="c1"># Get the response from http.client.HTTPConnection</span>
+<span class="ne">--&gt; </span><span class="mi">638</span> <span class="n">httplib_response</span> <span class="o">=</span> <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">getresponse</span><span class="p">()</span>
+<span class="g g-Whitespace">    </span><span class="mi">640</span> <span class="k">try</span><span class="p">:</span>
+<span class="g g-Whitespace">    </span><span class="mi">641</span>     <span class="n">assert_header_parsing</span><span class="p">(</span><span class="n">httplib_response</span><span class="o">.</span><span class="n">msg</span><span class="p">)</span>
+
+<span class="nn">File /usr/lib/python3.12/http/client.py:1457,</span> in <span class="ni">HTTPConnection.getresponse</span><span class="nt">(self)</span>
+<span class="g g-Whitespace">   </span><span class="mi">1455</span> <span class="k">try</span><span class="p">:</span>
+<span class="g g-Whitespace">   </span><span class="mi">1456</span>     <span class="k">try</span><span class="p">:</span>
+<span class="ne">-&gt; </span><span class="mi">1457</span>         <span class="n">response</span><span class="o">.</span><span class="n">begin</span><span class="p">()</span>
+<span class="g g-Whitespace">   </span><span class="mi">1458</span>     <span class="k">except</span> <span class="ne">ConnectionError</span><span class="p">:</span>
+<span class="g g-Whitespace">   </span><span class="mi">1459</span>         <span class="bp">self</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+
+<span class="nn">File /usr/lib/python3.12/http/client.py:336,</span> in <span class="ni">HTTPResponse.begin</span><span class="nt">(self)</span>
+<span class="g g-Whitespace">    </span><span class="mi">334</span> <span class="c1"># read until we get a non-100 response</span>
+<span class="g g-Whitespace">    </span><span class="mi">335</span> <span class="k">while</span> <span class="kc">True</span><span class="p">:</span>
+<span class="ne">--&gt; </span><span class="mi">336</span>     <span class="n">version</span><span class="p">,</span> <span class="n">status</span><span class="p">,</span> <span class="n">reason</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_read_status</span><span class="p">()</span>
+<span class="g g-Whitespace">    </span><span class="mi">337</span>     <span class="k">if</span> <span class="n">status</span> <span class="o">!=</span> <span class="n">CONTINUE</span><span class="p">:</span>
+<span class="g g-Whitespace">    </span><span class="mi">338</span>         <span class="k">break</span>
+
+<span class="nn">File /usr/lib/python3.12/http/client.py:297,</span> in <span class="ni">HTTPResponse._read_status</span><span class="nt">(self)</span>
+<span class="g g-Whitespace">    </span><span class="mi">296</span> <span class="k">def</span><span class="w"> </span><span class="nf">_read_status</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="ne">--&gt; </span><span class="mi">297</span>     <span class="n">line</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">fp</span><span class="o">.</span><span class="n">readline</span><span class="p">(</span><span class="n">_MAXLINE</span> <span class="o">+</span> <span class="mi">1</span><span class="p">),</span> <span class="s2">"iso-8859-1"</span><span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">298</span>     <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">line</span><span class="p">)</span> <span class="o">&gt;</span> <span class="n">_MAXLINE</span><span class="p">:</span>
+<span class="g g-Whitespace">    </span><span class="mi">299</span>         <span class="k">raise</span> <span class="n">LineTooLong</span><span class="p">(</span><span class="s2">"status line"</span><span class="p">)</span>
+
+<span class="nn">File /usr/lib/python3.12/socket.py:707,</span> in <span class="ni">SocketIO.readinto</span><span class="nt">(self, b)</span>
+<span class="g g-Whitespace">    </span><span class="mi">705</span> <span class="k">while</span> <span class="kc">True</span><span class="p">:</span>
+<span class="g g-Whitespace">    </span><span class="mi">706</span>     <span class="k">try</span><span class="p">:</span>
+<span class="ne">--&gt; </span><span class="mi">707</span>         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_sock</span><span class="o">.</span><span class="n">recv_into</span><span class="p">(</span><span class="n">b</span><span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">708</span>     <span class="k">except</span> <span class="n">timeout</span><span class="p">:</span>
+<span class="g g-Whitespace">    </span><span class="mi">709</span>         <span class="bp">self</span><span class="o">.</span><span class="n">_timeout_occurred</span> <span class="o">=</span> <span class="kc">True</span>
+
+<span class="nn">File /usr/lib/python3.12/ssl.py:1252,</span> in <span class="ni">SSLSocket.recv_into</span><span class="nt">(self, buffer, nbytes, flags)</span>
+<span class="g g-Whitespace">   </span><span class="mi">1248</span>     <span class="k">if</span> <span class="n">flags</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">:</span>
+<span class="g g-Whitespace">   </span><span class="mi">1249</span>         <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+<span class="g g-Whitespace">   </span><span class="mi">1250</span>           <span class="s2">"non-zero flags not allowed in calls to recv_into() on </span><span class="si">%s</span><span class="s2">"</span> <span class="o">%</span>
+<span class="g g-Whitespace">   </span><span class="mi">1251</span>           <span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span><span class="p">)</span>
+<span class="ne">-&gt; </span><span class="mi">1252</span>     <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="n">nbytes</span><span class="p">,</span> <span class="n">buffer</span><span class="p">)</span>
+<span class="g g-Whitespace">   </span><span class="mi">1253</span> <span class="k">else</span><span class="p">:</span>
+<span class="g g-Whitespace">   </span><span class="mi">1254</span>     <span class="k">return</span> <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">recv_into</span><span class="p">(</span><span class="n">buffer</span><span class="p">,</span> <span class="n">nbytes</span><span class="p">,</span> <span class="n">flags</span><span class="p">)</span>
+
+<span class="nn">File /usr/lib/python3.12/ssl.py:1104,</span> in <span class="ni">SSLSocket.read</span><span class="nt">(self, len, buffer)</span>
+<span class="g g-Whitespace">   </span><span class="mi">1102</span> <span class="k">try</span><span class="p">:</span>
+<span class="g g-Whitespace">   </span><span class="mi">1103</span>     <span class="k">if</span> <span class="n">buffer</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+<span class="ne">-&gt; </span><span class="mi">1104</span>         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_sslobj</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="nb">len</span><span class="p">,</span> <span class="n">buffer</span><span class="p">)</span>
+<span class="g g-Whitespace">   </span><span class="mi">1105</span>     <span class="k">else</span><span class="p">:</span>
+<span class="g g-Whitespace">   </span><span class="mi">1106</span>         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_sslobj</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="nb">len</span><span class="p">)</span>
+
+<span class="ne">KeyboardInterrupt</span>: 
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="validasi-hasil-ekstraksi">
+<h2>11. Validasi Hasil Ekstraksi<a class="headerlink" href="#validasi-hasil-ekstraksi" title="Link to this heading">#</a></h2>
+<p>Jumlah artikel yang berhasil diekstraksi dapat berbeda dari jumlah URL yang dikumpulkan karena terdapat kemungkinan kegagalan download atau ekstraksi.</p>
+<p>Oleh karena itu, jumlah artikel hasil ekstraksi harus diperiksa sebelum dataset dibentuk.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="s2">"=== PERBANDINGAN URL DAN HASIL EKSTRAKSI ==="</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span>
+    <span class="sa">f</span><span class="s2">"Sport   : </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">url_sport</span><span class="p">)</span><span class="si">}</span><span class="s2"> URL "</span>
+    <span class="sa">f</span><span class="s2">"→ </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">data_sport</span><span class="p">)</span><span class="si">}</span><span class="s2"> artikel berhasil"</span>
+<span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span>
+    <span class="sa">f</span><span class="s2">"Finance : </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">url_finance</span><span class="p">)</span><span class="si">}</span><span class="s2"> URL "</span>
+    <span class="sa">f</span><span class="s2">"→ </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">data_finance</span><span class="p">)</span><span class="si">}</span><span class="s2"> artikel berhasil"</span>
+<span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span>
+    <span class="sa">f</span><span class="s2">"Total   : </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">url_sport</span><span class="p">)</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="nb">len</span><span class="p">(</span><span class="n">url_finance</span><span class="p">)</span><span class="si">}</span><span class="s2"> URL "</span>
+    <span class="sa">f</span><span class="s2">"→ </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">data_sport</span><span class="p">)</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="nb">len</span><span class="p">(</span><span class="n">data_finance</span><span class="p">)</span><span class="si">}</span><span class="s2"> artikel berhasil"</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>=== PERBANDINGAN URL DAN HASIL EKSTRAKSI ===
+Sport   : 100 URL → 100 artikel berhasil
+Finance : 100 URL → 100 artikel berhasil
+Total   : 200 URL → 200 artikel berhasil
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="membentuk-dataset-sport-dan-finance">
+<h2>12. Membentuk Dataset Sport dan Finance<a class="headerlink" href="#membentuk-dataset-sport-dan-finance" title="Link to this heading">#</a></h2>
+<p>Hasil ekstraksi masing-masing kategori diubah menjadi DataFrame.</p>
+<p>Setiap dataset memiliki tiga kolom:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">kategori</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">url</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">teks</span></code></p></li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df_sport</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span>
+    <span class="n">data_sport</span>
+<span class="p">)</span>
+
+<span class="n">df_finance</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span>
+    <span class="n">data_finance</span>
+<span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">"=== DATASET SPORT ==="</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"Jumlah baris :"</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">df_sport</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"Jumlah kolom :"</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">df_sport</span><span class="o">.</span><span class="n">columns</span><span class="p">))</span>
+<span class="n">display</span><span class="p">(</span><span class="n">df_sport</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="mi">3</span><span class="p">))</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">"</span><span class="se">\n</span><span class="s2">=== DATASET FINANCE ==="</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"Jumlah baris :"</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">df_finance</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"Jumlah kolom :"</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">df_finance</span><span class="o">.</span><span class="n">columns</span><span class="p">))</span>
+<span class="n">display</span><span class="p">(</span><span class="n">df_finance</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="mi">3</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>=== DATASET SPORT ===
+Jumlah baris : 100
+Jumlah kolom : 3
+</pre></div>
+</div>
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>kategori</th>
+      <th>url</th>
+      <th>teks</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>sport</td>
+      <td>https://sport.detik.com/sport-lain/d-8695603/e...</td>
+      <td>Menpora Erick Thohir senang kontingen Indonesi...</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>sport</td>
+      <td>https://sport.detik.com/moto-gp/d-8695608/moto...</td>
+      <td>Rangkaian seri balap MotoGP Jepang di Sirkuit ...</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>sport</td>
+      <td>https://sport.detik.com/moto-gp/d-8695361/impi...</td>
+      <td>Jorge Martin sedang memperjuangkan titel juara...</td>
+    </tr>
+  </tbody>
+</table>
+</div></div><div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>=== DATASET FINANCE ===
+Jumlah baris : 100
+Jumlah kolom : 3
+</pre></div>
+</div>
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>kategori</th>
+      <th>url</th>
+      <th>teks</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>finance</td>
+      <td>https://finance.detik.com/berita-ekonomi-bisni...</td>
+      <td>Sebanyak 33,2 juta warga bakal mendapat bantua...</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>finance</td>
+      <td>https://finance.detik.com/berita-ekonomi-bisni...</td>
+      <td>Perluas akses inklusi keuangan dan memberikan ...</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>finance</td>
+      <td>https://finance.detik.com/infrastruktur/d-8695...</td>
+      <td>KAI Properti terus mempercepat penyelesaian pe...</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+</section>
+<section id="menyimpan-dataset-per-kategori">
+<h2>13. Menyimpan Dataset Per Kategori<a class="headerlink" href="#menyimpan-dataset-per-kategori" title="Link to this heading">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">os</span><span class="o">.</span><span class="n">makedirs</span><span class="p">(</span><span class="s2">"data"</span><span class="p">,</span> <span class="n">exist_ok</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+<span class="n">file_sport</span> <span class="o">=</span> <span class="s2">"data/dataset_detik_sport.csv"</span>
+<span class="n">file_finance</span> <span class="o">=</span> <span class="s2">"data/dataset_detik_finance.csv"</span>
+
+<span class="n">df_sport</span><span class="o">.</span><span class="n">to_csv</span><span class="p">(</span>
+    <span class="n">file_sport</span><span class="p">,</span>
+    <span class="n">index</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+    <span class="n">encoding</span><span class="o">=</span><span class="s2">"utf-8"</span>
+<span class="p">)</span>
+
+<span class="n">df_finance</span><span class="o">.</span><span class="n">to_csv</span><span class="p">(</span>
+    <span class="n">file_finance</span><span class="p">,</span>
+    <span class="n">index</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+    <span class="n">encoding</span><span class="o">=</span><span class="s2">"utf-8"</span>
+<span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">"Dataset Sport berhasil disimpan :"</span><span class="p">,</span> <span class="n">file_sport</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"Dataset Finance berhasil disimpan :"</span><span class="p">,</span> <span class="n">file_finance</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Dataset Sport berhasil disimpan : data/dataset_detik_sport.csv
+Dataset Finance berhasil disimpan : data/dataset_detik_finance.csv
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="menggabungkan-dataset">
+<h2>14. Menggabungkan Dataset<a class="headerlink" href="#menggabungkan-dataset" title="Link to this heading">#</a></h2>
+<p>Dataset Sport dan Finance digabungkan menjadi satu dataset.</p>
+<p>Dataset gabungan akan digunakan sebagai dataset utama untuk tahap pengolahan selanjutnya.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df_all</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">(</span>
+    <span class="p">[</span><span class="n">df_sport</span><span class="p">,</span> <span class="n">df_finance</span><span class="p">],</span>
+    <span class="n">ignore_index</span><span class="o">=</span><span class="kc">True</span>
+<span class="p">)</span>
+
+<span class="n">df_all</span><span class="o">.</span><span class="n">insert</span><span class="p">(</span>
+    <span class="mi">0</span><span class="p">,</span>
+    <span class="s2">"id"</span><span class="p">,</span>
+    <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">df_all</span><span class="p">)</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span>
+<span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">"=== DATASET GABUNGAN ==="</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"Jumlah baris :"</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">df_all</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"Jumlah kolom :"</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">df_all</span><span class="o">.</span><span class="n">columns</span><span class="p">))</span>
+
+<span class="n">display</span><span class="p">(</span><span class="n">df_all</span><span class="o">.</span><span class="n">head</span><span class="p">())</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>=== DATASET GABUNGAN ===
+Jumlah baris : 200
+Jumlah kolom : 4
+</pre></div>
+</div>
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>id</th>
+      <th>kategori</th>
+      <th>url</th>
+      <th>teks</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>1</td>
+      <td>sport</td>
+      <td>https://sport.detik.com/sport-lain/d-8695603/e...</td>
+      <td>Menpora Erick Thohir senang kontingen Indonesi...</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>2</td>
+      <td>sport</td>
+      <td>https://sport.detik.com/moto-gp/d-8695608/moto...</td>
+      <td>Rangkaian seri balap MotoGP Jepang di Sirkuit ...</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>3</td>
+      <td>sport</td>
+      <td>https://sport.detik.com/moto-gp/d-8695361/impi...</td>
+      <td>Jorge Martin sedang memperjuangkan titel juara...</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>4</td>
+      <td>sport</td>
+      <td>https://sport.detik.com/moto-gp/d-8695022/veda...</td>
+      <td>Rider Indonesia Veda Ega Pratama balapan di Ma...</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>5</td>
+      <td>sport</td>
+      <td>https://sport.detik.com/sport-lain/d-8694792/t...</td>
+      <td>Pelatih speed tim panjat tebing, Fitriyani, me...</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+</section>
+<section id="pemeriksaan-kualitas-dataset">
+<h2>15. Pemeriksaan Kualitas Dataset<a class="headerlink" href="#pemeriksaan-kualitas-dataset" title="Link to this heading">#</a></h2>
+<p>Pemeriksaan dilakukan untuk memastikan dataset hasil scraping memiliki kualitas yang sesuai sebelum digunakan pada tahap preprocessing.</p>
+<p>Pemeriksaan meliputi:</p>
+<ul class="simple">
+<li><p>jumlah data;</p></li>
+<li><p>nilai kosong;</p></li>
+<li><p>duplikasi ID;</p></li>
+<li><p>duplikasi URL;</p></li>
+<li><p>duplikasi teks;</p></li>
+<li><p>distribusi kategori;</p></li>
+<li><p>teks kosong;</p></li>
+<li><p>teks yang terlalu pendek.</p></li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="s2">"=== PEMERIKSAAN KUALITAS DATASET ==="</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">"Jumlah artikel Sport   :"</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">df_sport</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"Jumlah artikel Finance :"</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">df_finance</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"Jumlah artikel Total   :"</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">df_all</span><span class="p">))</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">"</span><span class="se">\n</span><span class="s2">Missing value:"</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">df_all</span><span class="o">.</span><span class="n">isna</span><span class="p">()</span><span class="o">.</span><span class="n">sum</span><span class="p">())</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">"</span><span class="se">\n</span><span class="s2">Duplikasi ID:"</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">df_all</span><span class="p">[</span><span class="s2">"id"</span><span class="p">]</span><span class="o">.</span><span class="n">duplicated</span><span class="p">()</span><span class="o">.</span><span class="n">sum</span><span class="p">())</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">"</span><span class="se">\n</span><span class="s2">Duplikasi URL:"</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">df_all</span><span class="p">[</span><span class="s2">"url"</span><span class="p">]</span><span class="o">.</span><span class="n">duplicated</span><span class="p">()</span><span class="o">.</span><span class="n">sum</span><span class="p">())</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">"</span><span class="se">\n</span><span class="s2">Duplikasi teks:"</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">df_all</span><span class="p">[</span><span class="s2">"teks"</span><span class="p">]</span><span class="o">.</span><span class="n">duplicated</span><span class="p">()</span><span class="o">.</span><span class="n">sum</span><span class="p">())</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">"</span><span class="se">\n</span><span class="s2">Teks kosong:"</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span>
+    <span class="n">df_all</span><span class="p">[</span><span class="s2">"teks"</span><span class="p">]</span>
+    <span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">str</span><span class="p">)</span>
+    <span class="o">.</span><span class="n">str</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span>
+    <span class="o">.</span><span class="n">eq</span><span class="p">(</span><span class="s2">""</span><span class="p">)</span>
+    <span class="o">.</span><span class="n">sum</span><span class="p">()</span>
+<span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">"</span><span class="se">\n</span><span class="s2">Teks kurang dari 100 karakter:"</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span>
+    <span class="p">(</span>
+        <span class="n">df_all</span><span class="p">[</span><span class="s2">"teks"</span><span class="p">]</span>
+        <span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">str</span><span class="p">)</span>
+        <span class="o">.</span><span class="n">str</span><span class="o">.</span><span class="n">len</span><span class="p">()</span>
+        <span class="o">&lt;</span> <span class="mi">100</span>
+    <span class="p">)</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span>
+<span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">"</span><span class="se">\n</span><span class="s2">Distribusi kategori:"</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">df_all</span><span class="p">[</span><span class="s2">"kategori"</span><span class="p">]</span><span class="o">.</span><span class="n">value_counts</span><span class="p">())</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>=== PEMERIKSAAN KUALITAS DATASET ===
+Jumlah artikel Sport   : 100
+Jumlah artikel Finance : 100
+Jumlah artikel Total   : 200
+
+Missing value:
+id          0
+kategori    0
+url         0
+teks        0
+dtype: int64
+
+Duplikasi ID:
+0
+
+Duplikasi URL:
+0
+
+Duplikasi teks:
+0
+
+Teks kosong:
+0
+
+Teks kurang dari 100 karakter:
+0
+
+Distribusi kategori:
+kategori
+sport      100
+finance    100
+Name: count, dtype: int64
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="validasi-target-dataset">
+<h2>16. Validasi Target Dataset<a class="headerlink" href="#validasi-target-dataset" title="Link to this heading">#</a></h2>
+<p>Target dataset adalah:</p>
+<ul class="simple">
+<li><p>100 artikel Sport</p></li>
+<li><p>100 artikel Finance</p></li>
+<li><p>total 200 artikel</p></li>
+</ul>
+<p>Validasi dilakukan untuk memastikan dataset akhir memenuhi target pengumpulan.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">jumlah_sport</span> <span class="o">=</span> <span class="p">(</span>
+    <span class="n">df_all</span><span class="p">[</span><span class="s2">"kategori"</span><span class="p">]</span>
+    <span class="o">.</span><span class="n">eq</span><span class="p">(</span><span class="s2">"sport"</span><span class="p">)</span>
+    <span class="o">.</span><span class="n">sum</span><span class="p">()</span>
+<span class="p">)</span>
+
+<span class="n">jumlah_finance</span> <span class="o">=</span> <span class="p">(</span>
+    <span class="n">df_all</span><span class="p">[</span><span class="s2">"kategori"</span><span class="p">]</span>
+    <span class="o">.</span><span class="n">eq</span><span class="p">(</span><span class="s2">"finance"</span><span class="p">)</span>
+    <span class="o">.</span><span class="n">sum</span><span class="p">()</span>
+<span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">"=== VALIDASI TARGET ==="</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"Sport   :"</span><span class="p">,</span> <span class="n">jumlah_sport</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"Finance :"</span><span class="p">,</span> <span class="n">jumlah_finance</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"Total   :"</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">df_all</span><span class="p">))</span>
+
+<span class="k">if</span> <span class="n">jumlah_sport</span> <span class="o">==</span> <span class="mi">100</span> <span class="ow">and</span> <span class="n">jumlah_finance</span> <span class="o">==</span> <span class="mi">100</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">"</span><span class="se">\n</span><span class="s2">Target dataset 200 artikel tercapai."</span><span class="p">)</span>
+<span class="k">else</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">"</span><span class="se">\n</span><span class="s2">Target 200 artikel belum tercapai."</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span>
+        <span class="s2">"Gunakan jumlah artikel aktual sebagai dataset akhir."</span>
+    <span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>=== VALIDASI TARGET ===
+Sport   : 100
+Finance : 100
+Total   : 200
+
+Target dataset 200 artikel tercapai.
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="statistik-jumlah-kata">
+<h2>17. Statistik Jumlah Kata<a class="headerlink" href="#statistik-jumlah-kata" title="Link to this heading">#</a></h2>
+<p>Jumlah kata dihitung pada setiap artikel berdasarkan pemisahan teks menggunakan spasi.</p>
+<p>Statistik ini digunakan untuk mengetahui ukuran corpus yang berhasil dikumpulkan.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df_all</span><span class="p">[</span><span class="s2">"jumlah_kata"</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span>
+    <span class="n">df_all</span><span class="p">[</span><span class="s2">"teks"</span><span class="p">]</span>
+    <span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">str</span><span class="p">)</span>
+    <span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="nb">len</span><span class="p">(</span><span class="n">x</span><span class="o">.</span><span class="n">split</span><span class="p">()))</span>
+<span class="p">)</span>
+
+<span class="n">total_kata</span> <span class="o">=</span> <span class="n">df_all</span><span class="p">[</span><span class="s2">"jumlah_kata"</span><span class="p">]</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">"=== STATISTIK CORPUS TEKS ==="</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"Total dokumen :"</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">df_all</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Total seluruh kata : </span><span class="si">{</span><span class="n">total_kata</span><span class="si">:</span><span class="s2">,</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+
+<span class="n">display</span><span class="p">(</span>
+    <span class="n">df_all</span><span class="p">[</span>
+        <span class="p">[</span><span class="s2">"id"</span><span class="p">,</span> <span class="s2">"kategori"</span><span class="p">,</span> <span class="s2">"jumlah_kata"</span><span class="p">,</span> <span class="s2">"teks"</span><span class="p">]</span>
+    <span class="p">]</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>=== STATISTIK CORPUS TEKS ===
+Total dokumen : 200
+Total seluruh kata : 68,169
+</pre></div>
+</div>
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>id</th>
+      <th>kategori</th>
+      <th>jumlah_kata</th>
+      <th>teks</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>1</td>
+      <td>sport</td>
+      <td>279</td>
+      <td>Menpora Erick Thohir senang kontingen Indonesi...</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>2</td>
+      <td>sport</td>
+      <td>228</td>
+      <td>Rangkaian seri balap MotoGP Jepang di Sirkuit ...</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>3</td>
+      <td>sport</td>
+      <td>223</td>
+      <td>Jorge Martin sedang memperjuangkan titel juara...</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>4</td>
+      <td>sport</td>
+      <td>247</td>
+      <td>Rider Indonesia Veda Ega Pratama balapan di Ma...</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>5</td>
+      <td>sport</td>
+      <td>400</td>
+      <td>Pelatih speed tim panjat tebing, Fitriyani, me...</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+</section>
+<section id="statistik-panjang-artikel">
+<h2>18. Statistik Panjang Artikel<a class="headerlink" href="#statistik-panjang-artikel" title="Link to this heading">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="s2">"=== STATISTIK JUMLAH KATA PER ARTIKEL ==="</span><span class="p">)</span>
+
+<span class="n">display</span><span class="p">(</span>
+    <span class="n">df_all</span><span class="p">[</span><span class="s2">"jumlah_kata"</span><span class="p">]</span><span class="o">.</span><span class="n">describe</span><span class="p">()</span>
+<span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">"</span><span class="se">\n</span><span class="s2">=== STATISTIK PER KATEGORI ==="</span><span class="p">)</span>
+
+<span class="n">display</span><span class="p">(</span>
+    <span class="n">df_all</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s2">"kategori"</span><span class="p">)[</span><span class="s2">"jumlah_kata"</span><span class="p">]</span><span class="o">.</span><span class="n">agg</span><span class="p">(</span>
+        <span class="p">[</span><span class="s2">"count"</span><span class="p">,</span> <span class="s2">"mean"</span><span class="p">,</span> <span class="s2">"min"</span><span class="p">,</span> <span class="s2">"max"</span><span class="p">]</span>
+    <span class="p">)</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>=== STATISTIK JUMLAH KATA PER ARTIKEL ===
+</pre></div>
+</div>
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>count     200.000000
+mean      340.845000
+std       176.210162
+min        87.000000
+25%       231.750000
+50%       313.500000
+75%       395.250000
+max      1759.000000
+Name: jumlah_kata, dtype: float64
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>=== STATISTIK PER KATEGORI ===
+</pre></div>
+</div>
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>count</th>
+      <th>mean</th>
+      <th>min</th>
+      <th>max</th>
+    </tr>
+    <tr>
+      <th>kategori</th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>finance</th>
+      <td>100</td>
+      <td>335.97</td>
+      <td>94</td>
+      <td>973</td>
+    </tr>
+    <tr>
+      <th>sport</th>
+      <td>100</td>
+      <td>345.72</td>
+      <td>87</td>
+      <td>1759</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+</section>
+<section id="vocabulary-corpus">
+<h2>19. Vocabulary Corpus<a class="headerlink" href="#vocabulary-corpus" title="Link to this heading">#</a></h2>
+<p>Vocabulary dihitung berdasarkan seluruh kata yang terdapat dalam dataset hasil scraping.</p>
+<p>Perhitungan ini digunakan sebagai gambaran awal ukuran vocabulary sebelum tahap preprocessing.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">semua_teks</span> <span class="o">=</span> <span class="s2">" "</span><span class="o">.</span><span class="n">join</span><span class="p">(</span>
+    <span class="n">df_all</span><span class="p">[</span><span class="s2">"teks"</span><span class="p">]</span>
+    <span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">str</span><span class="p">)</span>
+    <span class="o">.</span><span class="n">tolist</span><span class="p">()</span>
+<span class="p">)</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span>
+
+<span class="n">kumpulan_kata</span> <span class="o">=</span> <span class="n">semua_teks</span><span class="o">.</span><span class="n">split</span><span class="p">()</span>
+
+<span class="n">kata_unik</span> <span class="o">=</span> <span class="nb">set</span><span class="p">(</span><span class="n">kumpulan_kata</span><span class="p">)</span>
+
+<span class="n">jumlah_kata_unik</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">kata_unik</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">"=== VOCABULARY CORPUS ==="</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span>
+    <span class="sa">f</span><span class="s2">"Total kata unik : </span><span class="si">{</span><span class="n">jumlah_kata_unik</span><span class="si">:</span><span class="s2">,</span><span class="si">}</span><span class="s2">"</span>
+<span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">"</span><span class="se">\n</span><span class="s2">Contoh vocabulary:"</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span>
+    <span class="nb">list</span><span class="p">(</span><span class="n">kata_unik</span><span class="p">)[:</span><span class="mi">20</span><span class="p">]</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>=== VOCABULARY CORPUS ===
+Total kata unik : 11,997
+
+Contoh vocabulary:
+['pecatur,', 'bermunculan', 'placement.', 'zen', '+0.562s', '1.335.000.', 'google', 'perdagangan.', 'belanja.', 'malang,', '17.900).', 'chaehyun', 'separuh', 'utama.', '(tmmin)', '2028', 'menteri', 'utesheva', 'performa', 'syahria']
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="distribusi-kategori">
+<h2>20. Distribusi Kategori<a class="headerlink" href="#distribusi-kategori" title="Link to this heading">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
+
+<span class="n">distribusi_kategori</span> <span class="o">=</span> <span class="p">(</span>
+    <span class="n">df_all</span><span class="p">[</span><span class="s2">"kategori"</span><span class="p">]</span>
+    <span class="o">.</span><span class="n">value_counts</span><span class="p">()</span>
+<span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">7</span><span class="p">,</span> <span class="mi">5</span><span class="p">))</span>
+
+<span class="n">distribusi_kategori</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span>
+    <span class="n">kind</span><span class="o">=</span><span class="s2">"bar"</span>
+<span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span>
+    <span class="s2">"Distribusi Artikel Berdasarkan Kategori"</span>
+<span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s2">"Kategori"</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s2">"Jumlah Artikel"</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">xticks</span><span class="p">(</span><span class="n">rotation</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/1f15eceb25d374245309d0f4a6c5f3529967b26990beb6d0b0f1f0200e852958.png" src="_images/1f15eceb25d374245309d0f4a6c5f3529967b26990beb6d0b0f1f0200e852958.png" />
+</div>
+</div>
+</section>
+<section id="distribusi-jumlah-kata">
+<h2>21. Distribusi Jumlah Kata<a class="headerlink" href="#distribusi-jumlah-kata" title="Link to this heading">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span> <span class="mi">5</span><span class="p">))</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span>
+    <span class="n">df_all</span><span class="p">[</span><span class="s2">"jumlah_kata"</span><span class="p">],</span>
+    <span class="n">bins</span><span class="o">=</span><span class="mi">20</span>
+<span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span>
+    <span class="s2">"Distribusi Jumlah Kata per Artikel"</span>
+<span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s2">"Jumlah Kata"</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s2">"Jumlah Artikel"</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/2b134d8aa3efe0444876f76b0ab3e12efabe8d282b36a70b75a0012f9814d105.png" src="_images/2b134d8aa3efe0444876f76b0ab3e12efabe8d282b36a70b75a0012f9814d105.png" />
+</div>
+</div>
+</section>
+<section id="sampel-dataset-akhir">
+<h2>22. Sampel Dataset Akhir<a class="headerlink" href="#sampel-dataset-akhir" title="Link to this heading">#</a></h2>
+<p>Beberapa data ditampilkan sebagai pemeriksaan akhir terhadap hasil scraping.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">display</span><span class="p">(</span>
+    <span class="n">df_all</span><span class="p">[</span>
+        <span class="p">[</span>
+            <span class="s2">"id"</span><span class="p">,</span>
+            <span class="s2">"kategori"</span><span class="p">,</span>
+            <span class="s2">"url"</span><span class="p">,</span>
+            <span class="s2">"jumlah_kata"</span><span class="p">,</span>
+            <span class="s2">"teks"</span>
+        <span class="p">]</span>
+    <span class="p">]</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>id</th>
+      <th>kategori</th>
+      <th>url</th>
+      <th>jumlah_kata</th>
+      <th>teks</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>1</td>
+      <td>sport</td>
+      <td>https://sport.detik.com/sport-lain/d-8695603/e...</td>
+      <td>279</td>
+      <td>Menpora Erick Thohir senang kontingen Indonesi...</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>2</td>
+      <td>sport</td>
+      <td>https://sport.detik.com/moto-gp/d-8695608/moto...</td>
+      <td>228</td>
+      <td>Rangkaian seri balap MotoGP Jepang di Sirkuit ...</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>3</td>
+      <td>sport</td>
+      <td>https://sport.detik.com/moto-gp/d-8695361/impi...</td>
+      <td>223</td>
+      <td>Jorge Martin sedang memperjuangkan titel juara...</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>4</td>
+      <td>sport</td>
+      <td>https://sport.detik.com/moto-gp/d-8695022/veda...</td>
+      <td>247</td>
+      <td>Rider Indonesia Veda Ega Pratama balapan di Ma...</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>5</td>
+      <td>sport</td>
+      <td>https://sport.detik.com/sport-lain/d-8694792/t...</td>
+      <td>400</td>
+      <td>Pelatih speed tim panjat tebing, Fitriyani, me...</td>
+    </tr>
+    <tr>
+      <th>5</th>
+      <td>6</td>
+      <td>sport</td>
+      <td>https://sport.detik.com/moto-gp/d-8694247/daft...</td>
+      <td>408</td>
+      <td>Pertamina Grand Prix of Indonesia 2026 sudah m...</td>
+    </tr>
+    <tr>
+      <th>6</th>
+      <td>7</td>
+      <td>sport</td>
+      <td>https://sport.detik.com/sport-lain/d-8694306/u...</td>
+      <td>371</td>
+      <td>Desak Made Rita Kusuma Dewi tak mau berpuas di...</td>
+    </tr>
+    <tr>
+      <th>7</th>
+      <td>8</td>
+      <td>sport</td>
+      <td>https://sport.detik.com/moto-gp/d-8694243/hasi...</td>
+      <td>444</td>
+      <td>Marc Marquez punya pekerjaan besar di Pertamin...</td>
+    </tr>
+    <tr>
+      <th>8</th>
+      <td>9</td>
+      <td>sport</td>
+      <td>https://sport.detik.com/sport-lain/d-8694041/g...</td>
+      <td>481</td>
+      <td>Tuntas sudah Kejuaraan Daerah Catur Piala Gube...</td>
+    </tr>
+    <tr>
+      <th>9</th>
+      <td>10</td>
+      <td>sport</td>
+      <td>https://sport.detik.com/sport-lain/d-8693928/i...</td>
+      <td>257</td>
+      <td>Indonesia juara FIFA ASEAN Cup 2026 usai menga...</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+</section>
+<section id="menyimpan-dataset-gabungan">
+<h2>23. Menyimpan Dataset Gabungan<a class="headerlink" href="#menyimpan-dataset-gabungan" title="Link to this heading">#</a></h2>
+<p>Dataset gabungan hasil scraping disimpan dalam format CSV sebagai dataset mentah.</p>
+<p>Dataset ini masih mempertahankan URL sumber sehingga dapat digunakan untuk pelacakan sumber artikel.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">file_gabungan</span> <span class="o">=</span> <span class="p">(</span>
+    <span class="s2">"data/dataset_detik_200_berita.csv"</span>
+<span class="p">)</span>
+
+<span class="n">df_all</span><span class="o">.</span><span class="n">to_csv</span><span class="p">(</span>
+    <span class="n">file_gabungan</span><span class="p">,</span>
+    <span class="n">index</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+    <span class="n">encoding</span><span class="o">=</span><span class="s2">"utf-8"</span>
+<span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span>
+    <span class="s2">"Dataset gabungan berhasil disimpan sebagai:"</span>
+<span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">file_gabungan</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Dataset gabungan berhasil disimpan sebagai:
+data/dataset_detik_200_berita.csv
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="membentuk-dataset-untuk">
+<h2>24. Membentuk Dataset untuk<a class="headerlink" href="#membentuk-dataset-untuk" title="Link to this heading">#</a></h2>
+<p>Dataset mentah hasil scraping memiliki informasi:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">id</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">kategori</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">url</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">teks</span></code></p></li>
+</ul>
+<p>Untuk tahap pengolahan teks berikutnya, digunakan tiga informasi utama:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">id</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">isi_berita</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">label</span></code></p></li>
+</ul>
+<p>URL tetap disimpan pada dataset mentah sebagai referensi sumber artikel.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df_tugas2</span> <span class="o">=</span> <span class="n">df_all</span><span class="p">[</span>
+    <span class="p">[</span><span class="s2">"id"</span><span class="p">,</span> <span class="s2">"teks"</span><span class="p">,</span> <span class="s2">"kategori"</span><span class="p">]</span>
+<span class="p">]</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+
+<span class="n">df_tugas2</span> <span class="o">=</span> <span class="n">df_tugas2</span><span class="o">.</span><span class="n">rename</span><span class="p">(</span>
+    <span class="n">columns</span><span class="o">=</span><span class="p">{</span>
+        <span class="s2">"teks"</span><span class="p">:</span> <span class="s2">"isi_berita"</span><span class="p">,</span>
+        <span class="s2">"kategori"</span><span class="p">:</span> <span class="s2">"label"</span>
+    <span class="p">}</span>
+<span class="p">)</span>
+
+<span class="n">file_tugas2</span> <span class="o">=</span> <span class="p">(</span>
+    <span class="s2">"dataset_detik_200_berita.xlsx"</span>
+<span class="p">)</span>
+
+<span class="n">df_tugas2</span><span class="o">.</span><span class="n">to_excel</span><span class="p">(</span>
+    <span class="n">file_tugas2</span><span class="p">,</span>
+    <span class="n">index</span><span class="o">=</span><span class="kc">False</span>
+<span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span>
+    <span class="s2">"Dataset untuk tugas berikutnya berhasil disimpan:"</span>
+<span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">file_tugas2</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">"</span><span class="se">\n</span><span class="s2">Struktur dataset:"</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">df_tugas2</span><span class="o">.</span><span class="n">columns</span><span class="o">.</span><span class="n">tolist</span><span class="p">())</span>
+
+<span class="n">display</span><span class="p">(</span>
+    <span class="n">df_tugas2</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Dataset untuk tugas berikutnya berhasil disimpan:
+dataset_detik_200_berita.xlsx
+
+Struktur dataset:
+['id', 'isi_berita', 'label']
+</pre></div>
+</div>
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>id</th>
+      <th>isi_berita</th>
+      <th>label</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>1</td>
+      <td>Menpora Erick Thohir senang kontingen Indonesi...</td>
+      <td>sport</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>2</td>
+      <td>Rangkaian seri balap MotoGP Jepang di Sirkuit ...</td>
+      <td>sport</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>3</td>
+      <td>Jorge Martin sedang memperjuangkan titel juara...</td>
+      <td>sport</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>4</td>
+      <td>Rider Indonesia Veda Ega Pratama balapan di Ma...</td>
+      <td>sport</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>5</td>
+      <td>Pelatih speed tim panjat tebing, Fitriyani, me...</td>
+      <td>sport</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+</section>
+<section id="ringkasan-hasil-scraping">
+<h2>25. Ringkasan Hasil Scraping<a class="headerlink" href="#ringkasan-hasil-scraping" title="Link to this heading">#</a></h2>
+<p>Tahap pencarian dan penambangan web telah menghasilkan dataset berita dari dua kategori, yaitu Sport dan Finance.</p>
+<p>Dataset akhir terdiri dari data hasil ekstraksi teks artikel menggunakan Trafilatura. URL sumber tetap disimpan pada dataset mentah untuk menjaga keterlacakan sumber.</p>
+<p>Dataset hasil scraping kemudian disimpan dalam format CSV per kategori, CSV gabungan, serta dataset Excel yang digunakan pada tahap pengolahan teks berikutnya.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="s2">"=========================================="</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"       RINGKASAN HASIL SCRAPING"</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"=========================================="</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"URL Sport dikumpulkan       : </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">url_sport</span><span class="p">)</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Artikel Sport berhasil      : </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">df_sport</span><span class="p">)</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"</span><span class="se">\n</span><span class="s2">URL Finance dikumpulkan     : </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">url_finance</span><span class="p">)</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Artikel Finance berhasil    : </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">df_finance</span><span class="p">)</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"</span><span class="se">\n</span><span class="s2">Total artikel akhir         : </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">df_all</span><span class="p">)</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Total kata                  : </span><span class="si">{</span><span class="n">total_kata</span><span class="si">:</span><span class="s2">,</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Total vocabulary awal       : </span><span class="si">{</span><span class="n">jumlah_kata_unik</span><span class="si">:</span><span class="s2">,</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">"</span><span class="se">\n</span><span class="s2">Distribusi kategori:"</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">df_all</span><span class="p">[</span><span class="s2">"kategori"</span><span class="p">]</span><span class="o">.</span><span class="n">value_counts</span><span class="p">())</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">"</span><span class="se">\n</span><span class="s2">Missing value:"</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">df_all</span><span class="o">.</span><span class="n">isna</span><span class="p">()</span><span class="o">.</span><span class="n">sum</span><span class="p">())</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">"</span><span class="se">\n</span><span class="s2">Duplikasi URL :"</span><span class="p">,</span> <span class="n">df_all</span><span class="p">[</span><span class="s2">"url"</span><span class="p">]</span><span class="o">.</span><span class="n">duplicated</span><span class="p">()</span><span class="o">.</span><span class="n">sum</span><span class="p">())</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"Duplikasi teks :"</span><span class="p">,</span> <span class="n">df_all</span><span class="p">[</span><span class="s2">"teks"</span><span class="p">]</span><span class="o">.</span><span class="n">duplicated</span><span class="p">()</span><span class="o">.</span><span class="n">sum</span><span class="p">())</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">"</span><span class="se">\n</span><span class="s2">File hasil:"</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"-"</span><span class="p">,</span> <span class="n">file_sport</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"-"</span><span class="p">,</span> <span class="n">file_finance</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"-"</span><span class="p">,</span> <span class="n">file_gabungan</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"-"</span><span class="p">,</span> <span class="n">file_tugas2</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>==========================================
+       RINGKASAN HASIL SCRAPING
+==========================================
+URL Sport dikumpulkan       : 100
+Artikel Sport berhasil      : 100
+
+URL Finance dikumpulkan     : 100
+Artikel Finance berhasil    : 100
+
+Total artikel akhir         : 200
+Total kata                  : 68,169
+Total vocabulary awal       : 11,997
+
+Distribusi kategori:
+kategori
+sport      100
+finance    100
+Name: count, dtype: int64
+
+Missing value:
+id             0
+kategori       0
+url            0
+teks           0
+jumlah_kata    0
+dtype: int64
+
+Duplikasi URL : 0
+Duplikasi teks : 0
+
+File hasil:
+- data/dataset_detik_sport.csv
+- data/dataset_detik_finance.csv
+- data/dataset_detik_200_berita.csv
+- dataset_detik_200_berita.xlsx
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "webmining312"
+        },
+        kernelOptions: {
+            name: "webmining312",
+            path: "./."
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'webmining312'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="intro.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">PPW (Pencarian &amp; penambangan Web)</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="tugas_2.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Tugas 2 - Text Preprocessing, TF-IDF, ICSDF, dan PCA</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <dialog id="pst-secondary-sidebar-modal"></dialog>
+                <div id="pst-secondary-sidebar" class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item"><div
+    id="pst-page-navigation-heading-2"
+    class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav id="pst-page-toc-nav" class="page-toc" aria-labelledby="pst-page-navigation-heading-2">
+    <ul class="pst-show_toc_level nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#alat-dan-library">1. Alat dan Library</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#konfigurasi-scraping">2. Konfigurasi Scraping</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#session-http">3. Session HTTP</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#normalisasi-url">4. Normalisasi URL</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#validasi-url-artikel">5. Validasi URL Artikel</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#mengumpulkan-url-artikel">6. Mengumpulkan URL Artikel</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#mengumpulkan-url-sport-dan-finance">7. Mengumpulkan URL Sport dan Finance</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#pemeriksaan-url-sebelum-ekstraksi">8. Pemeriksaan URL Sebelum Ekstraksi</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#ekstraksi-isi-artikel">9. Ekstraksi Isi Artikel</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#melakukan-ekstraksi-artikel">10. Melakukan Ekstraksi Artikel</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#validasi-hasil-ekstraksi">11. Validasi Hasil Ekstraksi</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#membentuk-dataset-sport-dan-finance">12. Membentuk Dataset Sport dan Finance</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#menyimpan-dataset-per-kategori">13. Menyimpan Dataset Per Kategori</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#menggabungkan-dataset">14. Menggabungkan Dataset</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#pemeriksaan-kualitas-dataset">15. Pemeriksaan Kualitas Dataset</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#validasi-target-dataset">16. Validasi Target Dataset</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#statistik-jumlah-kata">17. Statistik Jumlah Kata</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#statistik-panjang-artikel">18. Statistik Panjang Artikel</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#vocabulary-corpus">19. Vocabulary Corpus</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#distribusi-kategori">20. Distribusi Kategori</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#distribusi-jumlah-kata">21. Distribusi Jumlah Kata</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#sampel-dataset-akhir">22. Sampel Dataset Akhir</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#menyimpan-dataset-gabungan">23. Menyimpan Dataset Gabungan</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#membentuk-dataset-untuk">24. Membentuk Dataset untuk</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#ringkasan-hasil-scraping">25. Ringkasan Hasil Scraping</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By The Jupyter Book Community
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2023.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script defer src="_static/scripts/bootstrap.js?digest=55c26ed414f5f8a31ebb"></script>
+<script defer src="_static/scripts/pydata-sphinx-theme.js?digest=55c26ed414f5f8a31ebb"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>
